@@ -49,7 +49,7 @@
                                                             @lang('laralum_events::general.update')
                                                         </button>
                                                     @endcan
-                                                    @can('delete', $category)
+                                                    @can('delete', $event)
                                                         <a class="uk-button uk-button-small uk-button-danger" href="{{ route('laralum::events.destroy.confirm', ['id' => $event->id]) }}">
                                                             @lang('laralum_events::general.delete')
                                                         </a>

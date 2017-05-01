@@ -27,7 +27,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        return view('laralum_events::laralum.create');
     }
 
     /**
