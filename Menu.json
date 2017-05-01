@@ -1,0 +1,14 @@
+{
+    "items": [
+        {
+            "permission" : "laralum::events.access",
+            "trans": "laralum_events::general.events_list",
+            "route": "laralum::events.index"
+        },
+        {
+            "permission" : "laralum::events.create",
+            "trans": "laralum_events::general.create_event",
+            "route": "laralum::events.create"
+        }
+    ]
+}
