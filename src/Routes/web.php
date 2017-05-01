@@ -30,10 +30,10 @@ Route::group([
         ],
         'prefix'    => config('laralum.settings.base_url'),
         'namespace' => 'Laralum\Events\Controllers',
-        'as'        => 'laralum::events.',
+        'as'        => 'laralum::',
     ], function () {
-        Route::get('events/{event}/delete', 'EventController@confirmDestroy')->name('destroy.confirm');
-        Route::resource('events', 'CategoryController');
+        Route::get('events/{event}/delete', 'EventController@confirmDestroy')->name('events.destroy.confirm');
+        Route::resource('events', 'EventController');
     });
 
 Route::group([

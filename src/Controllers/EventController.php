@@ -8,10 +8,6 @@ use Laralum\Events\Models\Event;
 use Laralum\Events\Models\EventUser;
 use Laralum\Users\Models\User;
 
-use Laralum\Blog\Models\Category;
-
-use Illuminate\Http\Request;
-
 class EventController extends Controller
 {
     /**
@@ -21,7 +17,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        return view('laralum_events::laralum.index');
+        return view('laralum_events::laralum.index', ['events' => Event::paginate(20)]);
     }
 
     /**
