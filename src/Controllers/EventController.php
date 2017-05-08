@@ -41,22 +41,22 @@ class EventController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|max:191',
-            'color' => 'required|max:191',
-            'description' => 'required|max:2500',
             'date' => 'required|date',
             'time' => 'required|date_format:H:i',
+            'description' => 'required|max:2500',
+            'color' => 'required|max:191',
+            'price' => 'required|numeric|max:999999999.99'
         ]);
 
         Event::create([
             'title'   => $request->title,
+            'date' => $request->date,
+            'time' => $request->time,
             'user_id' => Auth::id(),
             'description' => $request->description,
             'color' => $request->color,
-            'time' => $request->time,
-            'date' => $request->date,
             'price' => $request->price,
             'public' => $request->has('public'),
-            'title' => $request->title,
         ]);
 
         return redirect()->route('laralum::events.index')->with('success', __('laralum_events::general.event_added'));

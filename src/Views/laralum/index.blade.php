@@ -1,6 +1,6 @@
 @extends('laralum::layouts.master')
 @section('icon', 'ion-calendar')
-@section('title', __('laralum_events::general.event_list'))
+@section('title', __('laralum_events::general.events_list'))
 @section('subtitle', __('laralum_events::general.events_desc'))
 @section('breadcrumb')
     <ul class="uk-breadcrumb">

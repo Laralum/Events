@@ -37,16 +37,16 @@
                                 </div>
 
                                 <div class="uk-margin">
-                                    <label class="uk-form-label">@lang('laralum_events::general.time')</label>
+                                    <label class="uk-form-label">@lang('laralum_events::general.date')</label>
                                     <div class="uk-form-controls">
-                                        <input value="hh:mm a" id="time" name="time" class="uk-input" type="text" placeholder="@lang('laralum_events::general.time_ph')">
+                                        <input id="date" value="{{ old('date') }}" name="date" class="uk-input" type="text" data-theme="laralum-date" data-format="Y-m-d" data-lang="{{ App::getLocale() }}" placeholder="@lang('laralum_events::general.date_ph')">
                                     </div>
                                 </div>
 
                                 <div class="uk-margin">
-                                    <label class="uk-form-label">@lang('laralum_events::general.date')</label>
+                                    <label class="uk-form-label">@lang('laralum_events::general.time')</label>
                                     <div class="uk-form-controls">
-                                        <input id="date" name="date" class="uk-input" type="text" data-theme="laralum-date" data-format="Y-m-d" data-lang="{{ App::getLocale() }}" placeholder="@lang('laralum_events::general.date_ph')">
+                                        <input value="{{ old('time') }}" id="time" name="time" class="uk-input" type="text" placeholder="@lang('laralum_events::general.time_ph')">
                                     </div>
                                 </div>
 
@@ -67,7 +67,7 @@
                                 <div class="uk-margin">
                                     <label class="uk-form-label">@lang('laralum_events::general.price')</label>
                                     <div class="uk-form-controls">
-                                        <input value="" name="price" class="uk-input" type="number" placeholder="@lang('laralum_events::general.price_ph')">
+                                        <input value="{{ old('price') }}" name="price" class="uk-input" type="number" step="0.01" placeholder="@lang('laralum_events::general.price_ph')">
                                     </div>
                                 </div>
 

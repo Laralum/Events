@@ -22,7 +22,7 @@ class CreateLaralumEvents extends Migration
             $table->boolean('public');
             $table->time('time');
             $table->date('date');
-            $table->decimal('price', 5, 2);
+            $table->decimal('price', 11, 2);
             $table->timestamps();
         });
     }

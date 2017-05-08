@@ -37,6 +37,7 @@ return [
     'event'          => 'Event',
     'view_event'     => 'View Event',
     'event_id'       => 'Event #:id',
+    'events_list'    => 'Events list',
     'event_added'    => 'Event Added!',
     'event_updated'  => 'Event #:id updated!',
     'event_deleted'  => 'Event #:id deleted!',
