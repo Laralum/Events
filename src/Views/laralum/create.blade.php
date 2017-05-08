@@ -2,6 +2,10 @@
 @section('icon', 'ion-plus-round')
 @section('title', __('laralum_event::general.create_event'))
 @section('subtitle', __('laralum_event::general.create_event_desc'))
+@section('css')
+    <script src="gitcdn.com/id"></script>
+    <link rel="stylesheet" type="text/css" href="gitcdn.com/id">
+@endsection
 @section('breadcrumb')
     <ul class="uk-breadcrumb">
         <li><a href="{{ route('laralum::index') }}">@lang('laralum_events::general.home')</a></li>
@@ -52,6 +56,7 @@
                                     </div>
                                 </div>
 
+                                <input type="text" id="alarm" />
 
                                 <div class="uk-margin uk-grid-small uk-child-width-auto" uk-grid>
                                     <label><input class="uk-checkbox" type="checkbox" name="public" {{ old('public') }}> @lang('laralum_events::general.public')</label>
@@ -70,4 +75,7 @@
             <div class="uk-width-1-1@s uk-width-1-5@l uk-width-1-3@xl"></div>
         </div>
     </div>
+@endsection
+@section('js')
+    <script>$( "#alarm" ).timeDropper();</script>
 @endsection
