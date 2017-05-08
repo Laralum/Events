@@ -1,10 +1,11 @@
 @extends('laralum::layouts.master')
 @section('icon', 'ion-plus-round')
-@section('title', __('laralum_event::general.create_event'))
-@section('subtitle', __('laralum_event::general.create_event_desc'))
+@section('title', __('laralum_events::general.create_event'))
+@section('subtitle', __('laralum_events::general.create_event_desc'))
 @section('css')
+    <link rel="stylesheet" href="https://gitcdn.xyz/cdn/Laralum/Events/7012bae7372a1e9a670b6f2ac1364b94c77245fb/src/Assets/laralum-date.css">
+    <link rel="stylesheet" type="text/css" href="https://gitcdn.xyz/cdn/felicegattuso/Datedropper3/60df15d8f657f50b059972bb1c4061f91c1976b8/datedropper.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/timedropper/1.0/timedropper.css">
-    <link rel="stylesheet" type="text/css" href="https://gitcdn.xyz/id">
 @endsection
 @section('breadcrumb')
     <ul class="uk-breadcrumb">
@@ -36,6 +37,20 @@
                                 </div>
 
                                 <div class="uk-margin">
+                                    <label class="uk-form-label">@lang('laralum_events::general.time')</label>
+                                    <div class="uk-form-controls">
+                                        <input value="hh:mm a" id="time" name="time" class="uk-input" type="text" placeholder="@lang('laralum_events::general.time_ph')">
+                                    </div>
+                                </div>
+
+                                <div class="uk-margin">
+                                    <label class="uk-form-label">@lang('laralum_events::general.date')</label>
+                                    <div class="uk-form-controls">
+                                        <input id="date" name="date" class="uk-input" type="text" data-theme="laralum-date" data-format="Y-m-d" data-lang="{{ App::getLocale() }}" placeholder="@lang('laralum_events::general.date_ph')">
+                                    </div>
+                                </div>
+
+                                <div class="uk-margin">
                                     <label class="uk-form-label">@lang('laralum_events::general.color')</label>
                                     <div class="uk-form-controls">
                                         <input value="{{ old('color') }}" name="color" class="uk-input" type="text" placeholder="@lang('laralum_events::general.color_ph')">
@@ -52,23 +67,10 @@
                                 <div class="uk-margin">
                                     <label class="uk-form-label">@lang('laralum_events::general.price')</label>
                                     <div class="uk-form-controls">
-                                        <input value="" name="price" class="uk-input" type="number" placeholder="@lang('laralum_events::general.title_ph')">
+                                        <input value="" name="price" class="uk-input" type="number" placeholder="@lang('laralum_events::general.price_ph')">
                                     </div>
                                 </div>
 
-                                <div class="uk-margin">
-                                    <label class="uk-form-label">@lang('laralum_events::general.time')</label>
-                                    <div class="uk-form-controls">
-                                        <input id="time" name="time" class="uk-input" type="text" placeholder="@lang('laralum_events::general.time_ph')">
-                                    </div>
-                                </div>
-
-                                <div class="uk-margin">
-                                    <label class="uk-form-label">@lang('laralum_events::general.date')</label>
-                                    <div class="uk-form-controls">
-                                        <input id="date" name="date" class="uk-input" type="text" placeholder="@lang('laralum_events::general.date_ph')">
-                                    </div>
-                                </div>
 
                                 <div class="uk-margin uk-grid-small uk-child-width-auto" uk-grid>
                                     <label><input class="uk-checkbox" type="checkbox" name="public" {{ old('public') }}> @lang('laralum_events::general.public')</label>
@@ -89,13 +91,11 @@
     </div>
 @endsection
 @section('js')
+    <script src="https://gitcdn.xyz/cdn/24aitor/Datedropper3/2da8e76e9646141710b48acce0757b6ab6f29354/datedropper.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/timedropper/1.0/timedropper.js"></script>
-    <script src="https://gitcdn.xyz/datedropperid"></script>
 
     <script>
-    $(function () {
-        $( "#time" ).timeDropper();
-        $( "#date" ).dateDropper();
-    });
+    $( "#date" ).dateDropper();
+    $( "#time" ).timeDropper({'format':'HH:mm'});
     </script>
 @endsection

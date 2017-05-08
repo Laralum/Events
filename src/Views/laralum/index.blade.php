@@ -34,10 +34,11 @@
                                         <tr>
                                             <td>{{ $event->id }}</td>
                                             <td>{{ $event->title }}</td>
-                                            <td>{{ $event->name }}</td>
+                                            <td>{{ $event->user_id }}</td>
+                                            <td>{{ $event->users->count() }}</td>
                                             <td class="uk-table-shrink">
                                                 <div class="uk-button-group">
-                                                    <a class="uk-button uk-button-default uk-button-small" href="{{ route('laralum::evnets.show', ['id' => $event->id]) }}">
+                                                    <a class="uk-button uk-button-default uk-button-small" href="{{ route('laralum::events.show', ['id' => $event->id]) }}">
                                                         @lang('laralum_events::general.view')
                                                     </a>
                                                     @can('update', $event)

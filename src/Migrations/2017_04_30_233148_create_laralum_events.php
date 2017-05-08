@@ -20,7 +20,8 @@ class CreateLaralumEvents extends Migration
             $table->string('color');
             $table->text('description');
             $table->boolean('public');
-            $table->datetime('date');
+            $table->time('time');
+            $table->date('date');
             $table->decimal('price', 5, 2);
             $table->timestamps();
         });

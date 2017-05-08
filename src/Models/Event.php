@@ -18,7 +18,7 @@ class Event extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'user_id', 'description', 'date', 'price', 'color'];
+    protected $fillable = ['title', 'user_id', 'description', 'time', 'date', 'price', 'color', 'public'];
 
     /**
      * Return all the event users.
