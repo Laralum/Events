@@ -1,0 +1,68 @@
+/*
+
+	INSTRUCTIONS ---------------------------------------------------------------------------------
+  
+  1. link this stylesheet in the head of your HTML
+  	 <link href="YOUR PATH/laralum-date.css" rel="stylesheet" type="text/css" />
+     
+  2. Set the file name as data-theme attribute on your input
+  	 <input data-theme="laralum-date" />
+     
+  3. That's it!
+  
+  When you run script the style will be automatically applied.
+
+*/
+div.datedropper.laralum-date {
+  border-radius: 8px;
+  width: 180px;
+}
+div.datedropper.laralum-date .picker {
+  border-radius: 8px;
+  box-shadow: 0 0 32px 0px rgba(0, 0, 0, 0.1);
+}
+div.datedropper.laralum-date .pick-l {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+div.datedropper.laralum-date:before,
+div.datedropper.laralum-date .pick-submit,
+div.datedropper.laralum-date .pick-lg-b .pick-sl:before,
+div.datedropper.laralum-date .pick-m,
+div.datedropper.laralum-date .pick-lg-h {
+  background-color: #1E87F0;
+}
+div.datedropper.laralum-date .pick-y.pick-jump,
+div.datedropper.laralum-date .pick li span,
+div.datedropper.laralum-date .pick-lg-b .pick-wke,
+div.datedropper.laralum-date .pick-btn {
+  color: #1E87F0;
+}
+div.datedropper.laralum-date .picker,
+div.datedropper.laralum-date .pick-l {
+  background-color: #FFF;
+}
+div.datedropper.laralum-date .picker,
+div.datedropper.laralum-date .pick-arw,
+div.datedropper.laralum-date .pick-l {
+  color: #4D4D4D;
+}
+div.datedropper.laralum-date .pick-m,
+div.datedropper.laralum-date .pick-m .pick-arw,
+div.datedropper.laralum-date .pick-lg-h,
+div.datedropper.laralum-date .pick-lg-b .pick-sl,
+div.datedropper.laralum-date .pick-submit {
+  color: #FFF;
+}
+div.datedropper.laralum-date.picker-tiny:before,
+div.datedropper.laralum-date.picker-tiny .pick-m {
+  background-color: #FFF;
+}
+div.datedropper.laralum-date.picker-tiny .pick-m,
+div.datedropper.laralum-date.picker-tiny .pick-m .pick-arw {
+  color: #4D4D4D;
+}
+div.datedropper.laralum-date.picker-lkd .pick-submit {
+  background-color: #FFF;
+  color: #4D4D4D;
+}
