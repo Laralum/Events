@@ -3,8 +3,8 @@
 @section('title', __('laralum_event::general.create_event'))
 @section('subtitle', __('laralum_event::general.create_event_desc'))
 @section('css')
-    <script src="gitcdn.com/id"></script>
-    <link rel="stylesheet" type="text/css" href="gitcdn.com/id">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/timedropper/1.0/timedropper.css">
+    <link rel="stylesheet" type="text/css" href="https://gitcdn.xyz/id">
 @endsection
 @section('breadcrumb')
     <ul class="uk-breadcrumb">
@@ -56,7 +56,19 @@
                                     </div>
                                 </div>
 
-                                <input type="text" id="alarm" />
+                                <div class="uk-margin">
+                                    <label class="uk-form-label">@lang('laralum_events::general.time')</label>
+                                    <div class="uk-form-controls">
+                                        <input id="time" name="time" class="uk-input" type="text" placeholder="@lang('laralum_events::general.time_ph')">
+                                    </div>
+                                </div>
+
+                                <div class="uk-margin">
+                                    <label class="uk-form-label">@lang('laralum_events::general.date')</label>
+                                    <div class="uk-form-controls">
+                                        <input id="date" name="date" class="uk-input" type="text" placeholder="@lang('laralum_events::general.date_ph')">
+                                    </div>
+                                </div>
 
                                 <div class="uk-margin uk-grid-small uk-child-width-auto" uk-grid>
                                     <label><input class="uk-checkbox" type="checkbox" name="public" {{ old('public') }}> @lang('laralum_events::general.public')</label>
@@ -77,5 +89,13 @@
     </div>
 @endsection
 @section('js')
-    <script>$( "#alarm" ).timeDropper();</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/timedropper/1.0/timedropper.js"></script>
+    <script src="https://gitcdn.xyz/datedropperid"></script>
+
+    <script>
+    $(function () {
+        $( "#time" ).timeDropper();
+        $( "#date" ).dateDropper();
+    });
+    </script>
 @endsection
