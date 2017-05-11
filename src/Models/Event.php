@@ -14,6 +14,16 @@ class Event extends Model
     protected $table = 'laralum_events';
 
     /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -21,11 +31,19 @@ class Event extends Model
     protected $fillable = ['title', 'user_id', 'description', 'time', 'date', 'price', 'color', 'public'];
 
     /**
+     * Return the event author.
+     */
+    public function user()
+    {
+        return $this->belongsTo('\Laralum\Users\Models\User');
+    }
+
+    /**
      * Return all the event users.
      */
     public function users()
     {
-        return $this->belongsToMany('Laralum\Users\Models\User', 'laralum_event_user');
+        return $this->belongsToMany('\Laralum\Users\Models\User', 'laralum_event_user');
     }
 
     /**

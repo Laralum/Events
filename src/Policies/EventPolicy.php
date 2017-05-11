@@ -54,8 +54,11 @@ class EventPolicy
      *
      * @return bool
      */
-    public function view($user)
+    public function view($user, Event $event)
     {
+        if ($event->user->id == $user->id) {
+            return True;
+        }
         return User::findOrFail($user->id)->hasPermission('laralum::events.view');
     }
 
@@ -68,6 +71,9 @@ class EventPolicy
      */
     public function update($user, Event $event)
     {
+        if ($event->user->id == $user->id) {
+            return True;
+        }
         return User::findOrFail($user->id)->hasPermission('laralum::events.update');
     }
 
@@ -80,6 +86,9 @@ class EventPolicy
      */
     public function delete($user, Event $event)
     {
+        if ($event->user->id == $user->id) {
+            return True;
+        }
         return User::findOrFail($user->id)->hasPermission('laralum::events.delete');
     }
 }

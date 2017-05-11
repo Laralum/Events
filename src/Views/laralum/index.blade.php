@@ -34,7 +34,7 @@
                                         <tr>
                                             <td>{{ $event->id }}</td>
                                             <td>{{ $event->title }}</td>
-                                            <td>{{ $event->user_id }}</td>
+                                            <td>{{ $event->user->name }}</td>
                                             <td>{{ $event->users->count() }}</td>
                                             <td class="uk-table-shrink">
                                                 <div class="uk-button-group">
@@ -42,7 +42,7 @@
                                                         @lang('laralum_events::general.view')
                                                     </a>
                                                     @can('update', $event)
-                                                        <a class="uk-button uk-button-default uk-button-small" href="{{ route('laralum::blog.categories.edit', ['id' => $event->id]) }}">
+                                                        <a class="uk-button uk-button-default uk-button-small" href="{{ route('laralum::events.edit', ['id' => $event->id]) }}">
                                                             @lang('laralum_events::general.edit')
                                                         </a>
                                                     @else
@@ -56,7 +56,7 @@
                                                         </a>
                                                     @else
                                                         <button disabled class="uk-button uk-button-small uk-button-danger">
-                                                            @lang('laralum_blog::general.delete')
+                                                            @lang('laralum_events::general.delete')
                                                         </button>
                                                     @endcan
                                                 </div>
