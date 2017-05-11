@@ -24,8 +24,9 @@
                         {{ __('laralum_events::general.edit_event') }}
                     </div>
                     <div class="uk-card-body">
-                        <form class="uk-form-stacked" method="POST" action="{{ route('laralum::events.store') }}">
+                        <form class="uk-form-stacked" method="POST" action="{{ route('laralum::events.update', ['event' => $event]) }}">
                             {{ csrf_field() }}
+                            {{ method_field('PATCH') }}
                             <fieldset class="uk-fieldset">
 
                                 <div class="uk-margin">

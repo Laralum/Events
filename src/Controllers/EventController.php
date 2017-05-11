@@ -92,8 +92,6 @@ class EventController extends Controller
         $this->authorize('update', $event);
 
         return view('laralum_events::laralum.edit', ['event' => $event]);
-
-        $event->touch();
     }
 
     /**
@@ -106,6 +104,28 @@ class EventController extends Controller
     public function update(Request $request, Event $event)
     {
         $this->authorize('update', $event);
+
+        $this->validate($request, [
+            'title' => 'required|max:191',
+            'date' => 'required|date',
+            'time' => 'required|date_format:H:i',
+            'description' => 'required|max:2500',
+            'color' => 'required|max:191',
+            'price' => 'required|numeric|max:999999999.99'
+        ]);
+
+        $event->update([
+            'title'   => $request->title,
+            'date' => $request->date,
+            'time' => $request->time,
+            'description' => $request->description,
+            'color' => $request->color,
+            'price' => $request->price,
+            'public' => $request->has('public'),
+        ]);
+        $event->touch();
+
+        return redirect()->route('laralum::events.index')->with('success', __('laralum_events::general.event_updated', ['id' => $event->id]));
     }
 
     /**
