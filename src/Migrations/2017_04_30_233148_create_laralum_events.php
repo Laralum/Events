@@ -17,7 +17,8 @@ class CreateLaralumEvents extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('title');
-            $table->string('color');
+            $table->string('color')->nullable();
+            $table->string('place')->nullable();
             $table->text('description');
             $table->boolean('public');
             $table->time('time');

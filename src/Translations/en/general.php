@@ -15,6 +15,8 @@ return [
     'edit'            => 'Edit',
     'update'          => 'Update',
     'create'          => 'Create',
+    'title'           => 'Title',
+    'title_ph'        => 'Enter the title for this event',
     'date'            => 'Date',
     'date_ph'         => 'Enter date where this event will be',
     'time'            => 'Time',
@@ -23,14 +25,14 @@ return [
     'color_ph'        => 'Enter an hex color for this event',
     'description'     => 'Description',
     'description_ph'  => 'Enter a description for this event',
+    'place'           => 'Place',
+    'place_ph'        => 'Enter the place where this event will be',
     'price'           => 'Price',
     'price_ph'        => 'Enter the price to access this event',
     'submit'          => 'Submit',
     'cancel'          => 'Cancel',
     'edit'            => 'Edit',
     'content'         => 'Content',
-    'title'           => 'Title',
-    'title_ph'        => 'Enter the title for this event',
     'public'          => 'Public',
     'view'            => 'View',
     'author'          => 'Author',
@@ -44,12 +46,22 @@ return [
     'event_updated'  => 'Event #:id updated!',
     'event_deleted'  => 'Event #:id deleted!',
 
+    'event_celebrated' => 'The event has already been celebrated.',
+
     'edit_event'        => 'Edit Event',
     'create_event'      => 'Create Event',
     'events_desc'       => 'Events will allow you to share events with people.',
     'events'            => 'Events',
     'create_event_desc' => 'Create a new event to the database',
     'edit_event_desc'   => "You're editing event #:id created :time_ago",
+
+    'time_left'         => 'Time left to event',
+    'hours'             => 'Hours',
+    'days'              => 'Days',
+    'minutes'           => 'Minutes',
+    'seconds'           => 'Seconds',
+
+
 
     'image_url'         => 'Image URL',
     'image_url_ph'      => 'Paste an image URL to represent the event',

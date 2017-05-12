@@ -78,7 +78,7 @@ class EventController extends Controller
     {
         $this->authorize('view', $event);
 
-        return view('laralum_events::laralum.edit', ['event' => $event]);
+        return view('laralum_events::laralum.show', ['event' => $event]);
     }
 
     /**

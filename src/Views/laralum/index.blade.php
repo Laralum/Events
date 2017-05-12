@@ -33,7 +33,7 @@
                                     @forelse($events as $event)
                                         <tr>
                                             <td>{{ $event->id }}</td>
-                                            <td>{{ $event->title }}</td>
+                                            <td style="color:{{ $event->color }}">{{ $event->title }}</td>
                                             <td>{{ $event->user->name }}</td>
                                             <td>{{ $event->users->count() }}</td>
                                             <td class="uk-table-shrink">

@@ -53,7 +53,7 @@
                                 <div class="uk-margin">
                                     <label class="uk-form-label">@lang('laralum_events::general.color')</label>
                                     <div class="uk-form-controls">
-                                        <input value="{{ old('color', $event->color) }}" name="color" class="uk-input" type="text" placeholder="@lang('laralum_events::general.color_ph')">
+                                        <input value="{{ old('color', $event->color) }}" style="color:{{ $event->color }}" id="color" name="color" class="uk-input" type="text" placeholder="@lang('laralum_events::general.color_ph')">
                                     </div>
                                 </div>
 
@@ -95,7 +95,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/timedropper/1.0/timedropper.js"></script>
 
     <script>
-    $( "#date" ).dateDropper();
-    $( "#time" ).timeDropper({'format':'HH:mm', 'setCurrentTime':false});
+        $( "#date" ).dateDropper();
+        $( "#time" ).timeDropper({'format':'HH:mm', 'setCurrentTime':false});
+    </script>
+
+    <script>
+        $("#color").keyup(function(){
+            $("#color").css({"color":$(this).val()});
+        });
     </script>
 @endsection
