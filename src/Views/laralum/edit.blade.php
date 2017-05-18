@@ -4,7 +4,7 @@
 @section('subtitle', __('laralum_events::general.edit_event_desc'))
 @section('css')
     <link rel="stylesheet" href="https://gitcdn.xyz/cdn/Laralum/Events/7012bae7372a1e9a670b6f2ac1364b94c77245fb/src/Assets/laralum-date.css">
-    <link rel="stylesheet" type="text/css" href="https://gitcdn.xyz/cdn/felicegattuso/Datedropper3/60df15d8f657f50b059972bb1c4061f91c1976b8/datedropper.css">
+    <link rel="stylesheet" type="text/css" href="https://gitcdn.xyz/cdn/24aitor/Datedropper3/2da8e76e9646141710b48acce0757b6ab6f29354/datedropper.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/timedropper/1.0/timedropper.css">
 @endsection
 @section('breadcrumb')
@@ -94,7 +94,7 @@
 
 
                                 <div class="uk-margin uk-grid-small uk-child-width-auto" uk-grid>
-                                    <label><input class="uk-checkbox" type="checkbox" name="public" {{ old('public', $event->time) ?:'disabled' }}> @lang('laralum_events::general.public')</label>
+                                    <label><input class="uk-checkbox" type="checkbox" name="public" @can('publish', \Laralum\Events\Models\Event::class) {{ old('public') ? 'checked' : (!$event->public ?: 'checked' )}} @else disabled @endif> @lang('laralum_events::general.public')</label>
                                 </div>
 
                                 <div class="uk-margin">

@@ -17,10 +17,14 @@ return [
     'create'          => 'Create',
     'title'           => 'Title',
     'title_ph'        => 'Enter the title for this event',
-    'date'            => 'Date',
-    'date_ph'         => 'Enter date where this event will be',
-    'time'            => 'Time',
-    'time_ph'         => 'Enter time where this event will be',
+    'start_date'      => 'Start Date',
+    'start_date_ph'   => 'Enter date when this event will starts',
+    'end_date'        => 'End Date',
+    'end_date_ph'     => 'Enter date when this event will ends',
+    'start_time'      => 'Start Time',
+    'start_time_ph'   => 'Enter time when this event will starts',
+    'end_time'        => 'End Time',
+    'end_time_ph'     => 'Enter time when this event will ends',
     'color'           => 'Color',
     'color_ph'        => 'Enter an hex color for this event',
     'description'     => 'Description',
@@ -39,6 +43,9 @@ return [
     'users'           => 'Users',
 
     'duration'        => 'Duration',
+    'status'        => 'Status',
+    'published'        => 'Published',
+    'unpublished'        => 'Unpublished',
 
     'event'          => 'Event',
     'view_event'     => 'View Event',
@@ -48,8 +55,7 @@ return [
     'event_updated'  => 'Event #:id updated!',
     'event_deleted'  => 'Event #:id deleted!',
 
-    'event_celebrated' => 'The event has already been celebrated.',
-
+    'event_celebrated'  => 'The event has already been celebrated.',
     'edit_event'        => 'Edit Event',
     'create_event'      => 'Create Event',
     'events_desc'       => 'Events will allow you to share events with people.',
@@ -57,7 +63,10 @@ return [
     'create_event_desc' => 'Create a new event to the database',
     'edit_event_desc'   => "You're editing event #:id created :time_ago",
 
-    'time_left'         => 'Time left to event',
+    'time_left_starts'  => 'Time Left to Event Starts',
+    'time_left_ends'    => 'Time Left to Event Ends',
+    'you_were_late'     => 'You Were Late',
+
     'hours'             => 'Hours',
     'days'              => 'Days',
     'minutes'           => 'Minutes',

@@ -19,9 +19,18 @@
                         @lang('laralum_events::general.events_list')
                     </div>
                     <div class="uk-card-body">
-                        <div class="uk-text-lead uk-text-center uk-margin-medium-bottom">@lang('laralum_events::general.time_left')</div>
-                        @if($start_datetime->isFuture())
-                        <div id="countdown" class="uk-grid-small uk-child-width-auto uk-text-center uk-flex-center sticky" uk-grid uk-countdown="date: {{$start_datetime->subHours(2)->toAtomString() }}">
+                        <div class="uk-text-lead uk-text-center uk-margin-medium-bottom">
+                            @if($start_datetime->isFuture())
+                            @lang('laralum_events::general.time_left_starts')
+                            @elseif ($end_datetime->isFuture())
+                            @lang('laralum_events::general.time_left_ends')
+                            @else
+                            @lang('laralum_events::general.you_were_late')
+                            @endif
+                        </div>
+                        @if($end_datetime->isFuture())
+
+                        <div id="countdown" class="uk-grid-small uk-child-width-auto uk-text-center uk-flex-center sticky {{ ($start_datetime->isPast()) ? 'uk-text-primary' : 'uk-text-success' }}" uk-grid uk-countdown="date: {{ $start_datetime->isFuture() ? $start_datetime->toAtomString() : $end_datetime->toAtomString() }}">
                             <div>
                                 <div class="uk-countdown-number uk-countdown-days"></div>
                                 <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">@lang('laralum_events::general.days')</div>
@@ -42,10 +51,6 @@
                                 <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">@lang('laralum_events::general.seconds')</div>
                             </div>
                         </div>
-                        @elseif ($start_datetime->isPast() && $end_datetime->isFuture())
-                        <div class="uk-alert-primary uk-text-center" uk-alert>
-                            <p>@lang('laralum_events::general.event_is_being_celebrated')</p>
-                        </div>
                         @else
                         <div class="uk-alert-danger uk-text-center" uk-alert>
                             <p>@lang('laralum_events::general.event_celebrated')</p>
@@ -53,7 +58,6 @@
                         @endif
                         <br>
                         <hr class="uk-divider-icon">
-                        {{-- <br> --}}
                         <dl class="uk-description-list uk-description-list-divider">
                             <dt>@lang('laralum_events::general.description')</dt>
                             <dd class="uk-margin-small-top">{{ $event->description }}</dd>
@@ -61,6 +65,18 @@
                             <dd class="uk-margin-small-top">{{ $end_datetime->diffForHumans($start_datetime, true) }}</dd>
                             <dt>@lang('laralum_events::general.place')</dt>
                             <dd class="uk-margin-small-top">{{ $event->place }}</dd>
+                            <dt>@lang('laralum_events::general.status')</dt>
+                            <dd class="uk-margin-small-top">
+                                @if ($event->public)
+                                <span class="uk-label uk-label-success">@lang('laralum_events::general.published')</span>
+                                @else
+                                <span class="uk-label uk-label-warning">@lang('laralum_events::general.unpublished')</span>
+                                @endif
+                            </dd>
+                            <dt>@lang('laralum_events::general.start_date')</dt>
+                            <dd class="uk-margin-small-top">{{ $start_datetime->toCookieString() }}</dd>
+                            <dt>@lang('laralum_events::general.end_date')</dt>
+                            <dd class="uk-margin-small-top">{{ $end_datetime->toCookieString() }}</dd>
                         </dl>
                     </div>
                 </div>
@@ -74,6 +90,5 @@
         $( function () {
             UIkit.countdown($('#countdown'));
         });
-
     </script>
 @endsection
