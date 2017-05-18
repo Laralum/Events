@@ -95,13 +95,117 @@ class EventPolicy
     /**
      * Determine if the current user can publish events.
      *
-     * @param mixed                        $user
-     * @param \Laralum\Events\Models\Event $event
+     * @param mixed $user
      *
      * @return bool
      */
     public function publish($user)
     {
         return User::findOrFail($user->id)->hasPermission('laralum::events.publish');
+    }
+
+    /**
+     * Determine if the current user can join events.
+     *
+     * @param mixed $user
+     *
+     * @return bool
+     */
+    public function join($user)
+    {
+        return User::findOrFail($user->id)->hasPermission('laralum::events.join');
+    }
+
+    /**
+     * Determine if the current user can access events on public views.
+     *
+     * @param mixed $user
+     *
+     * @return bool
+     */
+    public function publicAccess($user)
+    {
+        return User::findOrFail($user->id)->hasPermission('laralum::events.access-public');
+    }
+
+    /**
+     * Determine if the current user can create events on public views.
+     *
+     * @param mixed $user
+     *
+     * @return bool
+     */
+    public function publicCreate($user)
+    {
+        return User::findOrFail($user->id)->hasPermission('laralum::events.create-public');
+    }
+
+    /**
+     * Determine if the current user can view events on public views.
+     *
+     * @param mixed $user
+     *
+     * @return bool
+     */
+    public function publicView($user, Event $event)
+    {
+        if ($event->user->id == $user->id) {
+            return True;
+        }
+        return User::findOrFail($user->id)->hasPermission('laralum::events.view-public');
+    }
+
+    /**
+     * Determine if the current user can update events on public views.
+     *
+     * @param mixed $user
+     *
+     * @return bool
+     */
+    public function publicUpdate($user, Event $event)
+    {
+        if ($event->user->id == $user->id) {
+            return User::findOrFail($user->id)->hasPermission('laralum::events.update-public');
+        }
+        return False;
+    }
+
+    /**
+     * Determine if the current user can delete events on public views.
+     *
+     * @param mixed $user
+     *
+     * @return bool
+     */
+    public function publicDelete($user, Event $event)
+    {
+        if ($event->user->id == $user->id) {
+            return User::findOrFail($user->id)->hasPermission('laralum::events.delete-public');
+        }
+        return False;
+    }
+
+    /**
+     * Determine if the current user can publish events on public views.
+     *
+     * @param mixed $user
+     *
+     * @return bool
+     */
+    public function publicPublish($user)
+    {
+        return User::findOrFail($user->id)->hasPermission('laralum::events.publish-public');
+    }
+
+    /**
+     * Determine if the current user can join events on public views.
+     *
+     * @param mixed $user
+     *
+     * @return bool
+     */
+    public function publicJoin($user)
+    {
+        return User::findOrFail($user->id)->hasPermission('laralum::events.join-public');
     }
 }

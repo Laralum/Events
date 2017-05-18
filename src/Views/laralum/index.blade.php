@@ -24,6 +24,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>@lang('laralum_events::general.title')</th>
+                                        <th>@lang('laralum_events::general.status')</th>
                                         <th>@lang('laralum_events::general.author')</th>
                                         <th>@lang('laralum_events::general.users')</th>
                                         <th>@lang('laralum_events::general.actions')</th>
@@ -34,6 +35,8 @@
                                         <tr>
                                             <td>{{ $event->id }}</td>
                                             <td style="color:{{ $event->color }}">{{ $event->title }}</td>
+                                            <td><span class="uk-label {{ ($event->public) ? "uk-label-success" : "uk-label-warning" }}">{{($event->public) ? __('laralum_events::general.published') : __('laralum_events::general.unpublished') }}</span></td>
+
                                             <td>{{ $event->user->name }}</td>
                                             <td>{{ $event->users->count() }}</td>
                                             <td class="uk-table-shrink">
@@ -48,6 +51,27 @@
                                                     @else
                                                         <button disabled class="uk-button uk-button-default uk-button-small">
                                                             @lang('laralum_events::general.update')
+                                                        </button>
+                                                    @endcan
+                                                    @can('join', $event)
+                                                        @if ($event->hasUser(Auth::user()))
+                                                            <form id="leave-form-{{$event->id}}" action="{{ route('laralum::events.leave', ['id' => $event->id]) }}" method="POST" style="display: none;">
+                                                                {{ csrf_field() }}
+                                                            </form>
+                                                            <a class="uk-button uk-button-default uk-button-small" onclick="event.preventDefault(); document.getElementById('leave-form-{{$event->id}}').submit();">
+                                                                @lang('laralum_events::general.leave')
+                                                            </a>
+                                                        @else
+                                                            <form id="join-form-{{$event->id}}" action="{{ route('laralum::events.join', ['id' => $event->id]) }}" method="POST" style="display: none;">
+                                                                {{ csrf_field() }}
+                                                            </form>
+                                                            <a class="uk-button uk-button-default uk-button-small" onclick="event.preventDefault(); document.getElementById('join-form-{{$event->id}}').submit();">
+                                                                @lang('laralum_events::general.join')
+                                                            </a>
+                                                        @endif
+                                                    @else
+                                                        <button disabled class="uk-button uk-button-default uk-button-small">
+                                                            @lang('laralum_events::general.join')
                                                         </button>
                                                     @endcan
                                                     @can('delete', $event)

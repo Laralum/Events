@@ -91,4 +91,10 @@ return [
     'contact_webmaster'     => 'If you think you should be able to update it, please contact webmaster.',
     'save_settings'         => 'Save events settings',
     'events_settings_updated' => 'Events settings updated',
+
+    'joined_event' => 'You joined the event #:id',
+    'left_event'   => 'You left the event #:id',
+
+    'join'  => 'Join',
+    'leave' => 'Leave',
 ];

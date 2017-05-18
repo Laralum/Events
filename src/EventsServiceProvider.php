@@ -58,6 +58,51 @@ class EventsServiceProvider extends ServiceProvider
             'slug' => 'laralum::events.publish',
             'desc' => 'Allows publishing events',
         ],
+        [
+            'name' => 'Join Events',
+            'slug' => 'laralum::events.join',
+            'desc' => 'Allows joining events',
+        ],
+        [
+            'name' => 'Update Events Settings',
+            'slug' => 'laralum::events.settings',
+            'desc' => 'Allows updating events settings',
+        ],
+        [
+            'name' => 'Events Access (public)',
+            'slug' => 'laralum::events.access-public',
+            'desc' => 'Grants access to events',
+        ],
+        [
+            'name' => 'Create Events (public)',
+            'slug' => 'laralum::events.create-public',
+            'desc' => 'Allows creating events',
+        ],
+        [
+            'name' => 'Update Events Categories (public)',
+            'slug' => 'laralum::events.update-public',
+            'desc' => 'Allows updating events',
+        ],
+        [
+            'name' => 'View Events Categories (public)',
+            'slug' => 'laralum::events.categories.view-public',
+            'desc' => 'Allows view events',
+        ],
+        [
+            'name' => 'Delete Events (public)',
+            'slug' => 'laralum::events.delete-public',
+            'desc' => 'Allows deleting events',
+        ],
+        [
+            'name' => 'Publish Events (public)',
+            'slug' => 'laralum::events.publish-public',
+            'desc' => 'Allows publishing events',
+        ],
+        [
+            'name' => 'Join Events (public)',
+            'slug' => 'laralum::events.join-public',
+            'desc' => 'Allows joining events',
+        ],
     ];
 
     /**

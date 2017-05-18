@@ -16,7 +16,7 @@
             <div class="uk-width-3-5@l uk-width-1-1@m">
                 <div class="uk-card uk-card-default">
                     <div class="uk-card-header">
-                        @lang('laralum_events::general.events_list')
+                        {{ $event->title }}
                     </div>
                     <div class="uk-card-body">
                         <div class="uk-text-lead uk-text-center uk-margin-medium-bottom">

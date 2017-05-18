@@ -11,7 +11,7 @@ use Laralum\Users\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
-class EventController extends Controller
+class PublicEventController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,9 +20,9 @@ class EventController extends Controller
      */
     public function index()
     {
-        $this->authorize('view', Event::class);
+        $this->authorize('publicView', Event::class);
 
-        return view('laralum_events::laralum.index', ['events' => Event::orderBy('id', 'desc')->paginate(50)]);
+        return view('laralum_events::public.index', ['events' => Event::orderBy('id', 'desc')->paginate(50)]);
     }
 
     /**
@@ -34,7 +34,7 @@ class EventController extends Controller
     {
         $this->authorize('create', Event::class);
 
-        return view('laralum_events::laralum.create');
+        return view('laralum_events::public.create');
     }
 
     /**
@@ -123,11 +123,11 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        $this->authorize('view', $event);
-
+        $this->authorize('publicView', $event);
+        dd($event->id);
         [$start_datetime, $end_datetime] = self::getDates($event);
 
-        return view('laralum_events::laralum.show', [
+        return view('laralum_events::public.show', [
             'event'          => $event,
             'start_datetime' => $start_datetime,
             'end_datetime'   => $end_datetime
@@ -150,9 +150,8 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request     $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  \Laralum\Events\Models\Event $event
-     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Event $event)
@@ -209,24 +208,6 @@ class EventController extends Controller
     }
 
     /**
-     * confirm destroy of the specified resource from storage.
-     *
-     * @param  \Laralum\Events\Models\Event $event
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function confirmDestroy(Request $request, Event $event)
-    {
-        $this->authorize('delete', $event);
-
-        return view('laralum::pages.confirmation', [
-            'method'  => 'DELETE',
-            'message' => __('laralum_events::general.sure_del_event', ['event' => $event->title]),
-            'action'  => route('laralum::events.destroy', ['event' => $event->id]),
-        ]);
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  \Laralum\Events\Models\Event $event
@@ -234,11 +215,11 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        $this->authorize('delete', $event);
+        $this->authorize('publicDelete', $event);
         $event->deleteUsers($event->users);
         $event->delete();
 
-        return redirect()->route('laralum::events.index')
+        return redirect()->route('laralum_public::events.index')
             ->with('success', __('laralum_events::general.event_deleted', ['id' => $event->id]));
     }
 
@@ -250,10 +231,10 @@ class EventController extends Controller
      */
     public function join(Event $event)
     {
-        $this->authorize('join', Event::class);
+        $this->authorize('publicJoin', Event::class);
         $event->addUser(User::findOrfail(Auth::id()));
 
-        return redirect()->route('laralum::events.index')
+        return redirect()->route('laralum_public::events.index')
             ->with('success', __('laralum_events::general.joined_event', ['id' => $event->id]));
     }
 
@@ -265,10 +246,10 @@ class EventController extends Controller
      */
     public function leave(Event $event)
     {
-        $this->authorize('join', Event::class);
+        $this->authorize('publicJoin', Event::class);
         $event->deleteUser(User::findOrfail(Auth::id()));
 
-        return redirect()->route('laralum::events.index')
+        return redirect()->route('laralum_public::events.index')
             ->with('success', __('laralum_events::general.left_event', ['id' => $event->id]));
     }
 }

@@ -11,16 +11,20 @@ Route::group([
             'auth', 'can:publicAccess,Laralum\Events\Models\Event',
         ],
         'namespace' => 'Laralum\Events\Controllers',
-        'prefix'    => $public_url,
         'as'        => 'laralum_public::events.',
     ], function () use ($public_url) {
-        Route::get('/', 'PublicEventController@index')->name('index');
-        Route::get('/{event}', 'PublicEventController@show')->name('show');
-        Route::get('/create', 'PublicEventController@create')->name('create');
-        Route::post('/', 'PublicEventController@store')->name('store');
-        Route::get('/{event}/edit', 'PublicEventController@edit')->name('edit');
-        Route::patch('/{event}', 'PublicEventController@update')->name('update');
-        Route::delete('/{event}', 'PublicEventController@destroy')->name('destroy');
+        Route::post($public_url.'/{event}/join', 'PublicEventController@join')->name('join');
+        Route::post($public_url.'/{event}/leave', 'PublicEventController@leave')->name('leave');
+
+        Route::resource($public_url, 'PublicEventController', ['names' => [
+            'index'   => 'index',
+            'create'  => 'create',
+            'store'   => 'store',
+            'show'    => 'show',
+            'edit'    => 'edit',
+            'update'  => 'update',
+            'destroy' => 'destroy',
+        ]]);
     });
 
 Route::group([
@@ -33,6 +37,8 @@ Route::group([
         'as'        => 'laralum::',
     ], function () {
         Route::get('events/{event}/delete', 'EventController@confirmDestroy')->name('events.destroy.confirm');
+        Route::post('events/{event}/join', 'EventController@join')->name('events.join');
+        Route::post('events/{event}/leave', 'EventController@leave')->name('events.leave');
         Route::resource('events', 'EventController');
     });
 
