@@ -5,9 +5,11 @@ namespace Laralum\Events\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Laralum\Events\Models\Event;
 use Laralum\Events\Models\EventUser;
 use Laralum\Users\Models\User;
+use Carbon\Carbon;
 
 class EventController extends Controller
 {
@@ -35,6 +37,19 @@ class EventController extends Controller
         return view('laralum_events::laralum.create');
     }
 
+    private function getDates($object)
+    {
+        $date = explode('-', $object->start_date);
+        $time = explode(':', $object->start_time);
+        $start_datetime = Carbon::create($date[0], $date[1], $date[2], $time[0], $time[1]);
+
+        $date = explode('-', $object->end_date);
+        $time = explode(':', $object->end_time);
+        $end_datetime = Carbon::create($date[0], $date[1], $date[2], $time[0], $time[1]);
+
+        return [$start_datetime, $end_datetime];
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -45,24 +60,49 @@ class EventController extends Controller
     {
         $this->authorize('create', Event::class);
 
-        $this->validate($request, [
+        // Check dates
+        $validator = Validator::make($request->all(), [
+            'start_date' => 'required|date',
+            'start_time' => 'required|date_format:H:i',
+            'end_date' => 'required|date',
+            'end_time' => 'required|date_format:H:i',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Check others
+        $validator = Validator::make($request->all(), [
             'title' => 'required|max:191',
-            'date' => 'required|date',
-            'time' => 'required|date_format:H:i',
             'description' => 'required|max:2500',
-            'color' => 'required|max:191',
+            'color' => 'max:191',
+            'place' => 'max:191',
             'price' => 'required|numeric|max:999999999.99'
         ]);
 
+        [$start_datetime, $end_datetime] = self::getDates($request);
+
+        if ($end_datetime->lte($start_datetime)) {
+            $validator->errors()->add('end_date', __('laralum_events::general.end_date_after_start_date'));
+
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $user = User::findOrFail(Auth::id());
+
         Event::create([
             'title'   => $request->title,
-            'date' => $request->date,
-            'time' => $request->time,
-            'user_id' => Auth::id(),
+            'start_date' => $request->start_date,
+            'start_time' => $request->start_time,
+            'end_date' => $request->end_date,
+            'end_time' => $request->end_time,
+            'user_id'  => Auth::id(),
             'description' => $request->description,
-            'color' => $request->color,
-            'price' => $request->price,
-            'public' => $request->has('public'),
+            'color'  => $request->color,
+            'place'  => $request->place,
+            'price'  => $request->price,
+            'public' => $user->can('publish', Event::class) ? $request->has('public') : false,
         ]);
 
         return redirect()->route('laralum::events.index')->with('success', __('laralum_events::general.event_added'));
@@ -78,7 +118,13 @@ class EventController extends Controller
     {
         $this->authorize('view', $event);
 
-        return view('laralum_events::laralum.show', ['event' => $event]);
+        [$start_datetime, $end_datetime] = self::getDates($event);
+
+        return view('laralum_events::laralum.show', [
+            'event'          => $event,
+            'start_datetime' => $start_datetime,
+            'end_datetime'   => $end_datetime
+        ]);
     }
 
     /**
@@ -105,24 +151,50 @@ class EventController extends Controller
     {
         $this->authorize('update', $event);
 
-        $this->validate($request, [
+        // Check dates
+        $validator = Validator::make($request->all(), [
+            'start_date' => 'required|date',
+            'start_time' => 'required|date_format:H:i',
+            'end_date'   => 'required|date',
+            'end_time'   => 'required|date_format:H:i',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Check others
+        $validator = Validator::make($request->all(), [
             'title' => 'required|max:191',
-            'date' => 'required|date',
-            'time' => 'required|date_format:H:i',
             'description' => 'required|max:2500',
-            'color' => 'required|max:191',
+            'color' => 'max:191',
+            'place' => 'max:191',
             'price' => 'required|numeric|max:999999999.99'
         ]);
 
+        [$start_datetime, $end_datetime] = self::getDates($request);
+
+        if ($end_datetime->lte($start_datetime)) {
+            $validator->errors()->add('end_date', __('laralum_events::general.end_date_after_start_date'));
+
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $user = User::findOrFail(Auth::id());
+
         $event->update([
             'title'   => $request->title,
-            'date' => $request->date,
-            'time' => $request->time,
+            'start_date' => $request->start_date,
+            'start_time' => $request->start_time,
+            'end_date' => $request->end_date,
+            'end_time' => $request->end_time,
             'description' => $request->description,
-            'color' => $request->color,
-            'price' => $request->price,
-            'public' => $request->has('public'),
+            'color'  => $request->color,
+            'place'  => $request->place,
+            'price'  => $request->price,
+            'public' => $user->can('publish', Event::class) ? $request->has('public') : false,
         ]);
+
         $event->touch();
 
         return redirect()->route('laralum::events.index')->with('success', __('laralum_events::general.event_updated', ['id' => $event->id]));

@@ -51,7 +51,12 @@ class EventsServiceProvider extends ServiceProvider
         [
             'name' => 'Delete Events',
             'slug' => 'laralum::events.delete',
-            'desc' => 'Allows delete events',
+            'desc' => 'Allows deleting events',
+        ],
+        [
+            'name' => 'Publish Events',
+            'slug' => 'laralum::events.publish',
+            'desc' => 'Allows publishing events',
         ],
     ];
 

@@ -38,6 +38,8 @@ return [
     'author'          => 'Author',
     'users'           => 'Users',
 
+    'duration'        => 'Duration',
+
     'event'          => 'Event',
     'view_event'     => 'View Event',
     'event_id'       => 'Event #:id',
@@ -61,7 +63,7 @@ return [
     'minutes'           => 'Minutes',
     'seconds'           => 'Seconds',
 
-
+    'end_date_after_start_date' => 'The event must ends after it starts',
 
     'image_url'         => 'Image URL',
     'image_url_ph'      => 'Paste an image URL to represent the event',

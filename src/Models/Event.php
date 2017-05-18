@@ -28,7 +28,12 @@ class Event extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'user_id', 'description', 'time', 'date', 'price', 'color', 'public'];
+    protected $fillable = [
+        'title', 'user_id', 'description',
+        'start_date', 'start_time', 'end_date',
+        'end_time', 'price', 'color',
+        'place', 'public'
+    ];
 
     /**
      * Return the event author.

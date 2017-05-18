@@ -21,8 +21,10 @@ class CreateLaralumEvents extends Migration
             $table->string('place')->nullable();
             $table->text('description');
             $table->boolean('public');
-            $table->time('time');
-            $table->date('date');
+            $table->date('start_date');
+            $table->time('start_time');
+            $table->date('end_date');
+            $table->time('end_time');
             $table->decimal('price', 11, 2);
             $table->timestamps();
         });

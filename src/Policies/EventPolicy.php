@@ -91,4 +91,17 @@ class EventPolicy
         }
         return User::findOrFail($user->id)->hasPermission('laralum::events.delete');
     }
+
+    /**
+     * Determine if the current user can publish events.
+     *
+     * @param mixed                        $user
+     * @param \Laralum\Events\Models\Event $event
+     *
+     * @return bool
+     */
+    public function publish($user)
+    {
+        return User::findOrFail($user->id)->hasPermission('laralum::events.publish');
+    }
 }
