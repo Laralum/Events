@@ -33,18 +33,12 @@
                 <dd>{{ $event->endDatetime()->diffForHumans($event->startDatetime(), true) }}</dd>
                 <dt>@lang('laralum_events::general.place')</dt>
                 <dd>{{ $event->place }}</dd>
-                <dt>@lang('laralum_events::general.status')</dt>
-                <dd>
-                    @if ($event->public)
-                        @lang('laralum_events::general.published')
-                    @else
-                        @lang('laralum_events::general.unpublished')
-                    @endif
-                </dd>
                 <dt>@lang('laralum_events::general.start_date')</dt>
                 <dd>{{ $event->startDatetime() }}</dd>
                 <dt>@lang('laralum_events::general.end_date')</dt>
                 <dd>{{ $event->endDatetime() }}</dd>
+                <dt>@lang('laralum_events::general.price')</dt>
+                <dd>{{ $event->price }}</dd>
             </dl>
 
             <table>
