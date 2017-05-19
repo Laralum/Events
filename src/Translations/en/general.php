@@ -42,11 +42,12 @@ return [
     'author'          => 'Author',
     'users'           => 'Users',
     'information'     => 'Information',
+    'email'           => 'Email',
 
     'duration'        => 'Duration',
-    'status'        => 'Status',
-    'published'        => 'Published',
-    'unpublished'        => 'Unpublished',
+    'status'          => 'Status',
+    'published'       => 'Published',
+    'unpublished'     => 'Unpublished',
 
     'event'          => 'Event',
     'view_event'     => 'View Event',
@@ -78,7 +79,7 @@ return [
     'image_url'         => 'Image URL',
     'image_url_ph'      => 'Paste an image URL to represent the event',
 
-    'sure_del_event' => 'Are you sure you want to delete event ":event" ?',
+    'sure_del_event' => 'Are you sure you want to delete the event ":event" ?',
 
     'public_url'            => 'Public URL',
     'select_editor'         => 'Please select a text editor',
@@ -86,7 +87,7 @@ return [
     'plain_text'            => 'Plain text',
     'markdown'              => 'Markdown',
     'wysiwyg'               => 'WYSIWYG',
-    'text_editor_desc'      => 'Select a text editor for messages',
+    'text_editor_desc'      => 'Select a text editor for events description',
     'unauthorized_action'   => 'Unauthorized Action',
     'unauthorized_desc'     => "You're not allowed to update the events settings.",
     'contact_webmaster'     => 'If you think you should be able to update it, please contact webmaster.',
