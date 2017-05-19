@@ -66,26 +66,41 @@
                                 <br>
                                 <hr class="uk-divider-icon">
                                 <dl class="uk-description-list uk-description-list-divider">
-                                    <dt>@lang('laralum_events::general.description')</dt>
-                                    <dd class="uk-margin-small-top">{!! $event->description !!}</dd>
-                                    <dt>@lang('laralum_events::general.duration')</dt>
-                                    <dd class="uk-margin-small-top">{{ $event->endDatetime()->diffForHumans($event->startDatetime(), true) }}</dd>
-                                    <dt>@lang('laralum_events::general.place')</dt>
-                                    <dd class="uk-margin-small-top">{{ $event->place }}</dd>
-                                    <dt>@lang('laralum_events::general.status')</dt>
-                                    <dd class="uk-margin-small-top">
-                                        @if ($event->public)
-                                        <span class="uk-label uk-label-success">@lang('laralum_events::general.published')</span>
-                                        @else
-                                        <span class="uk-label uk-label-warning">@lang('laralum_events::general.unpublished')</span>
-                                        @endif
-                                    </dd>
-                                    <dt>@lang('laralum_events::general.start_date')</dt>
-                                    <dd class="uk-margin-small-top">{{ $event->startDatetime() }}</dd>
-                                    <dt>@lang('laralum_events::general.end_date')</dt>
-                                    <dd class="uk-margin-small-top">{{ $event->endDatetime() }}</dd>
-                                    <dt>@lang('laralum_events::general.price')</dt>
-                                    <dd class="uk-margin-small-top">{{ $event->price }}</dd>
+                                    <dt class="uk-text-center">@lang('laralum_events::general.description')</dt>
+                                    <dd class="uk-margin uk-margin-left uk-margin-right uk-text-justify">{!! $event->description !!}</dd>
+                                    <hr class="uk-divider-icon uk-margin-medium-top">
+                                    <div class="uk-child-width-1-1@s uk-child-width-1-2@m uk-text-center uk-margin-bottom" uk-grid>
+                                        <div class="uk-margin-medium-top">
+                                            <dt>@lang('laralum_events::general.duration')</dt>
+                                            <dd class="uk-margin-small-top">{{ $event->endDatetime()->diffForHumans($event->startDatetime(), true) }}</dd>
+                                        </div>
+                                        <div class="uk-margin-medium-top">
+                                            <dt>@lang('laralum_events::general.place')</dt>
+                                            <dd class="uk-margin-small-top">{{ $event->place }}</dd>
+                                        </div>
+                                        <div class="uk-margin-medium-top">
+                                            <dt>@lang('laralum_events::general.status')</dt>
+                                            <dd class="uk-margin-small-top">
+                                                @if ($event->public)
+                                                <span class="uk-label uk-label-success">@lang('laralum_events::general.published')</span>
+                                                @else
+                                                <span class="uk-label uk-label-warning">@lang('laralum_events::general.unpublished')</span>
+                                                @endif
+                                            </dd>
+                                        </div>
+                                        <div class="uk-margin-medium-top">
+                                            <dt>@lang('laralum_events::general.price')</dt>
+                                            <dd class="uk-margin-small-top">{{ $event->price }}</dd>
+                                        </div>
+                                        <div class="uk-margin-medium-top">
+                                            <dt>@lang('laralum_events::general.start_date')</dt>
+                                            <dd class="uk-margin-small-top">{{ $event->startDatetime() }}</dd>
+                                        </div>
+                                        <div class="uk-margin-medium-top">
+                                            <dt>@lang('laralum_events::general.end_date')</dt>
+                                            <dd class="uk-margin-small-top">{{ $event->endDatetime() }}</dd>
+                                        </div>
+                                    </div>
                                 </dl>
                             </div>
                         </li>

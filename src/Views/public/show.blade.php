@@ -9,37 +9,40 @@
     </head>
     <body>
         <h1>{{ $event->title }}</h1>
-        <center>
-            @if(!$event->started())
-                @lang('laralum_events::general.start_date')
-                <br>
-                {{ $event->startDatetime()->diffForHumans() }}
-            @elseif (!$event->finished())
-                @lang('laralum_events::general.end_date')
-                <br>
-                {{ $event->endDatetime()->diffForHumans() }}
-            @else
-                @lang('laralum_events::general.you_were_late')
-                <br>
-                @lang('laralum_events::general.event_celebrated')
-            @endif
-        </center>
 
-            <hr>
-            <dl>
-                <dt>@lang('laralum_events::general.description')</dt>
-                <dd>{!! $event->description !!}</dd>
-                <dt>@lang('laralum_events::general.duration')</dt>
-                <dd>{{ $event->endDatetime()->diffForHumans($event->startDatetime(), true) }}</dd>
-                <dt>@lang('laralum_events::general.place')</dt>
-                <dd>{{ $event->place }}</dd>
-                <dt>@lang('laralum_events::general.start_date')</dt>
-                <dd>{{ $event->startDatetime() }}</dd>
-                <dt>@lang('laralum_events::general.end_date')</dt>
-                <dd>{{ $event->endDatetime() }}</dd>
-                <dt>@lang('laralum_events::general.price')</dt>
-                <dd>{{ $event->price }}</dd>
-            </dl>
+
+            <card>
+                <center>
+                    @if(!$event->started())
+                        @lang('laralum_events::general.start_date')
+                        <br>
+                        {{ $event->startDatetime()->diffForHumans() }}
+                    @elseif (!$event->finished())
+                        @lang('laralum_events::general.end_date')
+                        <br>
+                        {{ $event->endDatetime()->diffForHumans() }}
+                    @else
+                        @lang('laralum_events::general.you_were_late')
+                        <br>
+                        @lang('laralum_events::general.event_celebrated')
+                    @endif
+                </center>
+                <hr>
+                <dl>
+                    <dt>@lang('laralum_events::general.description')</dt>
+                    <dd>{!! $event->description !!}</dd>
+                    <dt>@lang('laralum_events::general.duration')</dt>
+                    <dd>{{ $event->endDatetime()->diffForHumans($event->startDatetime(), true) }}</dd>
+                    <dt>@lang('laralum_events::general.place')</dt>
+                    <dd>{{ $event->place }}</dd>
+                    <dt>@lang('laralum_events::general.start_date')</dt>
+                    <dd>{{ $event->startDatetime() }}</dd>
+                    <dt>@lang('laralum_events::general.end_date')</dt>
+                    <dd>{{ $event->endDatetime() }}</dd>
+                    <dt>@lang('laralum_events::general.price')</dt>
+                    <dd>{{ $event->price }}</dd>
+                </dl>
+            </card>
 
             <table>
                 <thead>
