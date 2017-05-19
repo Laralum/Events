@@ -16,15 +16,20 @@ Route::group([
         Route::post($public_url.'/{event}/join', 'PublicEventController@join')->name('join');
         Route::post($public_url.'/{event}/leave', 'PublicEventController@leave')->name('leave');
 
-        Route::resource($public_url, 'PublicEventController', ['names' => [
-            'index'   => 'index',
-            'create'  => 'create',
-            'store'   => 'store',
-            'show'    => 'show',
-            'edit'    => 'edit',
-            'update'  => 'update',
-            'destroy' => 'destroy',
-        ]]);
+        Route::resource($public_url, 'PublicEventController', [
+            'parameters' => [
+                $public_url => 'event'
+            ],
+            'names' => [
+                'index'   => 'index',
+                'create'  => 'create',
+                'store'   => 'store',
+                'show'    => 'show',
+                'edit'    => 'edit',
+                'update'  => 'update',
+                'destroy' => 'destroy',
+            ]
+        ]);
     });
 
 Route::group([

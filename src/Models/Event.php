@@ -3,6 +3,7 @@
 namespace Laralum\Events\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use \Carbon\Carbon;
 
 class Event extends Model
 {
@@ -12,16 +13,6 @@ class Event extends Model
      * @var string
      */
     protected $table = 'laralum_events';
-
-    /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
-     */
-    protected $dates = [
-        'created_at',
-        'updated_at',
-    ];
 
     /**
      * The attributes that are mass assignable.
@@ -58,9 +49,10 @@ class Event extends Model
      */
     public function hasUser($user)
     {
-        return EventUser::where(
-                ['event_id' => $this->id, 'user_id' => $user->id]
-            )->first();
+        return EventUser::where([
+            'event_id' => $this->id,
+            'user_id' => $user->id
+        ])->first();
     }
 
     /**
@@ -71,7 +63,10 @@ class Event extends Model
     public function addUser($user)
     {
         if (!$this->hasUser($user)) {
-            return EventUser::create(['event_id' => $this->id, 'user_id' => $user->id]);
+            return EventUser::create([
+                'event_id' => $this->id,
+                'user_id' => $user->id
+            ]);
         }
 
         return false;
@@ -99,9 +94,10 @@ class Event extends Model
     public function deleteUser($user)
     {
         if ($this->hasUser($user)) {
-            return EventUser::where(
-                    ['event_id' => $this->id, 'user_id' => $user->id]
-                )->first()->delete();
+            return EventUser::where([
+                'event_id' => $this->id,
+                'user_id' => $user->id
+            ])->first()->delete();
         }
 
         return false;
@@ -119,5 +115,53 @@ class Event extends Model
         }
 
         return true;
+    }
+
+    /**
+     * Get Carbon start datetime.
+     *
+     * @return \Carbon\Carbon
+     */
+    public function startDatetime()
+    {
+        $date = explode('-', $this->start_date);
+        $time = explode(':', $this->start_time);
+        $start_datetime = Carbon::create($date[0], $date[1], $date[2], $time[0], $time[1]);
+
+        return $start_datetime;
+    }
+
+    /**
+     * Get Carbon end datetime.
+     *
+     * @return \Carbon\Carbon
+     */
+    public function endDatetime()
+    {
+        $date = explode('-', $this->end_date);
+        $time = explode(':', $this->end_time);
+        $end_datetime = Carbon::create($date[0], $date[1], $date[2], $time[0], $time[1]);
+
+        return $end_datetime;
+    }
+
+    /**
+     * Returns true if event has started or passed.
+     *
+     * @return boolean
+     */
+    public function started()
+    {
+        return $this->startDatetime()->isPast();
+    }
+
+    /**
+     * Returns true if event has finished.
+     *
+     * @return boolean
+     */
+    public function finished()
+    {
+        return $this->endDatetime()->isPast();
     }
 }

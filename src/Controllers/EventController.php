@@ -2,10 +2,12 @@
 
 namespace Laralum\Events\Controllers;
 
+use GrahamCampbell\Markdown\Facades\Markdown;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Laralum\Events\Models\EventUser;
+use Laralum\Events\Models\Settings;
 use Laralum\Events\Models\Event;
 use Laralum\Users\Models\User;
 use Illuminate\Http\Request;
@@ -22,7 +24,9 @@ class EventController extends Controller
     {
         $this->authorize('view', Event::class);
 
-        return view('laralum_events::laralum.index', ['events' => Event::orderBy('id', 'desc')->paginate(50)]);
+        return view('laralum_events::laralum.index', [
+            'events' => Event::orderBy('id', 'desc')->paginate(50)
+        ]);
     }
 
     /**
@@ -98,6 +102,12 @@ class EventController extends Controller
 
         $user = User::findOrFail(Auth::id());
 
+        if (Settings::first()->text_editor == 'markdown') {
+            $desc = Markdown::convertToHtml($request->description);
+        } else {
+            $desc = htmlentities($request->description);
+        }
+
         Event::create([
             'title'   => $request->title,
             'start_date' => $request->start_date,
@@ -105,7 +115,7 @@ class EventController extends Controller
             'end_date' => $request->end_date,
             'end_time' => $request->end_time,
             'user_id'  => Auth::id(),
-            'description' => $request->description,
+            'description' => $desc,
             'color'  => $request->color,
             'place'  => $request->place,
             'price'  => $request->price,
@@ -125,12 +135,9 @@ class EventController extends Controller
     {
         $this->authorize('view', $event);
 
-        [$start_datetime, $end_datetime] = self::getDates($event);
-
         return view('laralum_events::laralum.show', [
-            'event'          => $event,
-            'start_datetime' => $start_datetime,
-            'end_datetime'   => $end_datetime
+            'event' => $event,
+            'users' => $event->users()->paginate(50)
         ]);
     }
 
@@ -190,13 +197,19 @@ class EventController extends Controller
 
         $user = User::findOrFail(Auth::id());
 
+        if (Settings::first()->text_editor == 'markdown') {
+            $desc = Markdown::convertToHtml($request->description);
+        } else {
+            $desc = htmlentities($request->description);
+        }
+
         $event->update([
             'title'   => $request->title,
             'start_date' => $request->start_date,
             'start_time' => $request->start_time,
             'end_date' => $request->end_date,
             'end_time' => $request->end_time,
-            'description' => $request->description,
+            'description' => $desc,
             'color'  => $request->color,
             'place'  => $request->place,
             'price'  => $request->price,

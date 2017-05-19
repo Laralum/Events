@@ -2,10 +2,12 @@
 
 namespace Laralum\Events\Controllers;
 
+use GrahamCampbell\Markdown\Facades\Markdown;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Laralum\Events\Models\EventUser;
+use Laralum\Events\Models\Settings;
 use Laralum\Events\Models\Event;
 use Laralum\Users\Models\User;
 use Illuminate\Http\Request;
@@ -98,6 +100,12 @@ class PublicEventController extends Controller
 
         $user = User::findOrFail(Auth::id());
 
+        if (Settings::first()->text_editor == 'markdown') {
+            $desc = Markdown::convertToHtml($request->description);
+        } else {
+            $desc = htmlentities($request->description);
+        }
+
         Event::create([
             'title'   => $request->title,
             'start_date' => $request->start_date,
@@ -105,14 +113,14 @@ class PublicEventController extends Controller
             'end_date' => $request->end_date,
             'end_time' => $request->end_time,
             'user_id'  => Auth::id(),
-            'description' => $request->description,
+            'description' => $desc,
             'color'  => $request->color,
             'place'  => $request->place,
             'price'  => $request->price,
             'public' => $user->can('publish', Event::class) ? $request->has('public') : false,
         ]);
 
-        return redirect()->route('laralum::events.index')->with('success', __('laralum_events::general.event_added'));
+        return redirect()->route('laralum_public::events.index')->with('success', __('laralum_events::general.event_added'));
     }
 
     /**
@@ -124,13 +132,10 @@ class PublicEventController extends Controller
     public function show(Event $event)
     {
         $this->authorize('publicView', $event);
-        dd($event->id);
-        [$start_datetime, $end_datetime] = self::getDates($event);
 
         return view('laralum_events::public.show', [
-            'event'          => $event,
-            'start_datetime' => $start_datetime,
-            'end_datetime'   => $end_datetime
+            'event' => $event,
+            'users' => $event->users()->paginate(50)
         ]);
     }
 
@@ -144,7 +149,7 @@ class PublicEventController extends Controller
     {
         $this->authorize('update', $event);
 
-        return view('laralum_events::laralum.edit', ['event' => $event]);
+        return view('laralum_events::public.edit', ['event' => $event]);
     }
 
     /**
@@ -189,13 +194,19 @@ class PublicEventController extends Controller
 
         $user = User::findOrFail(Auth::id());
 
+        if (Settings::first()->text_editor == 'markdown') {
+            $desc = Markdown::convertToHtml($request->description);
+        } else {
+            $desc = htmlentities($request->description);
+        }
+
         $event->update([
             'title'   => $request->title,
             'start_date' => $request->start_date,
             'start_time' => $request->start_time,
             'end_date' => $request->end_date,
             'end_time' => $request->end_time,
-            'description' => $request->description,
+            'description' => $desc,
             'color'  => $request->color,
             'place'  => $request->place,
             'price'  => $request->price,
@@ -204,7 +215,7 @@ class PublicEventController extends Controller
 
         $event->touch();
 
-        return redirect()->route('laralum::events.index')->with('success', __('laralum_events::general.event_updated', ['id' => $event->id]));
+        return redirect()->route('laralum_public::events.index')->with('success', __('laralum_events::general.event_updated', ['id' => $event->id]));
     }
 
     /**

@@ -16,7 +16,6 @@
                         <option value="" @if(!$settings->text_editor) selected @endif disabled>@lang('laralum_events::general.select_editor')</option>
                         <option @if($settings->text_editor == 'plain-text') selected @endif value="plain-text">@lang('laralum_events::general.plain_text')</option>
                         <option @if($settings->text_editor == 'markdown') selected @endif value="markdown">@lang('laralum_events::general.markdown')</option>
-                        <option @if($settings->text_editor == 'wysiwyg') selected @endif value="wysiwyg">@lang('laralum_events::general.wysiwyg')</option>
                     </select>
                     <small class="uk-text-meta">@lang('laralum_events::general.text_editor_desc')</small>
                 </div>

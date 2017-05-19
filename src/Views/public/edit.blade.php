@@ -1,130 +1,95 @@
-@extends('laralum::layouts.master')
-@section('icon', 'ion-plus-round')
-@section('title', __('laralum_events::general.edit_event'))
-@section('subtitle', __('laralum_events::general.edit_event_desc'))
-@section('css')
-    <link rel="stylesheet" href="https://gitcdn.xyz/cdn/Laralum/Events/7012bae7372a1e9a670b6f2ac1364b94c77245fb/src/Assets/laralum-date.css">
-    <link rel="stylesheet" type="text/css" href="https://gitcdn.xyz/cdn/24aitor/Datedropper3/2da8e76e9646141710b48acce0757b6ab6f29354/datedropper.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/timedropper/1.0/timedropper.css">
-@endsection
-@section('breadcrumb')
-    <ul class="uk-breadcrumb">
-        <li><a href="{{ route('laralum::index') }}">@lang('laralum_events::general.home')</a></li>
-        <li><a href="{{ route('laralum::events.index') }}">@lang('laralum_events::general.events_list')</a></li>
-        <li><span>@lang('laralum_events::general.edit_event')</span></li>
-    </ul>
-@endsection
-@section('content')
-    <div class="uk-container uk-container-large">
-        <div uk-grid>
-            <div class="uk-width-1-1@s uk-width-1-5@l"></div>
-            <div class="uk-width-1-1@s uk-width-3-5@l">
-                <div class="uk-card uk-card-default">
-                    <div class="uk-card-header">
-                        {{ __('laralum_events::general.edit_event') }}
-                    </div>
-                    <div class="uk-card-body">
-                        <form class="uk-form-stacked" method="POST" action="{{ route('laralum::events.update', ['event' => $event]) }}">
-                            {{ csrf_field() }}
-                            {{ method_field('PATCH') }}
-                            <fieldset class="uk-fieldset">
+@php
+    $settings = \Laralum\Events\Models\Settings::first();
+@endphp
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>@lang('laralum_events::general.events_list') - {{ Laralum\Settings\Models\Settings::first()->appname }}</title>
+        <link rel="stylesheet" href="{{ \Laralum\Laralum\Packages::css() }}">
+    </head>
+    <body>
+        <h1>@lang('laralum_events::general.edit_event', ['id' => $event->id])</h1>
+        @if(Session::has('success'))
+            <hr>
+            <p style="color:green">
+                {{Session::get('success')}}
+            </p>
+            <hr>
+        @endif
+        @if(Session::has('info'))
+            <hr>
+            <p style="color:blue">
+                {{Session::get('info')}}
+            </p>
+            <hr>
+        @endif
+        @if(Session::has('error'))
+            <hr>
+            <p style="color:red">
+                {{Session::get('error')}}
+            </p>
+            <hr>
+        @endif
+        @if(count($errors->all()))
+            <hr>
+            <p style="color:red">
+                @foreach($errors->all() as $error) {{$error}}<br/>@endforeach
+            </p>
+            <hr>
+        @endif
+        <form method="POST" action="{{ route('laralum_public::events.update', ['event' => $event->id]) }}">
 
-                                <div class="uk-margin">
-                                    <label class="uk-form-label">@lang('laralum_events::general.title')</label>
-                                    <div class="uk-form-controls">
-                                        <input value="{{ old('title', $event->title) }}" name="title" class="uk-input" type="text" placeholder="@lang('laralum_events::general.title_ph')">
-                                    </div>
-                                </div>
+            {{ csrf_field() }}
+            {{ method_field('PATCH') }}
 
-                                <div class="uk-margin">
-                                    <label class="uk-form-label">@lang('laralum_events::general.start_date')</label>
-                                    <div class="uk-form-controls">
-                                        <input id="start_date" value="{{ old('start_date', $event->start_date) }}" name="start_date" class="uk-input" type="text" data-large-mode="true" data-large-default="true" data-init-set="false" data-theme="laralum-date" data-format="Y-m-d" data-lang="{{ App::getLocale() }}" placeholder="@lang('laralum_events::general.start_date_ph')">
-                                    </div>
-                                </div>
+            <label>@lang('laralum_events::general.title')</label>
+            <input value="{{ old('title', $event->title) }}" name="title" type="text" placeholder="@lang('laralum_events::general.title_ph')">
 
-                                <div class="uk-margin">
-                                    <label class="uk-form-label">@lang('laralum_events::general.start_time')</label>
-                                    <div class="uk-form-controls">
-                                        <input value="{{ old('start_time', $event->start_time) }}" id="start_time" name="start_time" class="uk-input" type="text" placeholder="@lang('laralum_events::general.start_time_ph')">
-                                    </div>
-                                </div>
+            <label>@lang('laralum_events::general.start_date')</label>
+            <input id="start_date" value="{{ old('start_date', $event->start_date) }}" name="start_date" type="date"  placeholder="@lang('laralum_events::general.start_date_ph')">
 
-                                <div class="uk-margin">
-                                    <label class="uk-form-label">@lang('laralum_events::general.end_date')</label>
-                                    <div class="uk-form-controls">
-                                        <input id="end_date" value="{{ old('end_date', $event->end_date) }}" name="end_date" class="uk-input" type="text" data-large-mode="true" data-large-default="true" data-init-set="false" data-theme="laralum-date" data-format="Y-m-d" data-lang="{{ App::getLocale() }}" placeholder="@lang('laralum_events::general.end_date_ph')">
-                                    </div>
-                                </div>
+            <label>@lang('laralum_events::general.start_time')</label>
 
-                                <div class="uk-margin">
-                                    <label class="uk-form-label">@lang('laralum_events::general.end_time')</label>
-                                    <div class="uk-form-controls">
-                                        <input value="{{ old('end_time', $event->end_time) }}" id="end_time" name="end_time" class="uk-input" type="text" placeholder="@lang('laralum_events::general.end_time_ph')">
-                                    </div>
-                                </div>
+            <input value="{{ old('start_time', substr($event->start_time, 0, -3)) }}" id="start_time" name="start_time" type="time" placeholder="@lang('laralum_events::general.start_time_ph')">
 
-                                <div class="uk-margin">
-                                    <label class="uk-form-label">@lang('laralum_events::general.color')</label>
-                                    <div class="uk-form-controls">
-                                        <input value="{{ old('color', $event->color) }}" style="color:{{ $event->color }}" id="color" name="color" class="uk-input" type="text" placeholder="@lang('laralum_events::general.color_ph')">
-                                    </div>
-                                </div>
+            <label>@lang('laralum_events::general.end_date')</label>
+            <input id="end_date" value="{{ old('end_date', $event->end_date) }}" name="end_date" type="date" placeholder="@lang('laralum_events::general.end_date_ph')">
 
-                                <div class="uk-margin">
-                                    <label class="uk-form-label">@lang('laralum_events::general.place')</label>
-                                    <div class="uk-form-controls">
-                                        <input value="{{ old('place', $event->place) }}" name="place" class="uk-input" type="text" placeholder="@lang('laralum_events::general.place_ph')">
-                                    </div>
-                                </div>
+            <label>@lang('laralum_events::general.end_time')</label>
+            <input value="{{ old('end_time', substr($event->end_time, 0, -3)) }}" id="end_time" name="end_time" type="time" placeholder="@lang('laralum_events::general.end_time_ph')">
 
-                                <div class="uk-margin">
-                                    <label class="uk-form-label">@lang('laralum_events::general.description')</label>
-                                    <div class="uk-form-controls">
-                                        <input value="{{ old('description', $event->description) }}" name="description" class="uk-input" type="text" placeholder="@lang('laralum_events::general.description_ph')">
-                                    </div>
-                                </div>
+            <label>@lang('laralum_events::general.color')</label>
+            <input value="{{ old('color', $event->color) }}" id="color" name="color" type="text" placeholder="@lang('laralum_events::general.color_ph')">
 
-                                <div class="uk-margin">
-                                    <label class="uk-form-label">@lang('laralum_events::general.price')</label>
-                                    <div class="uk-form-controls">
-                                        <input value="{{ old('price', $event->price) }}" name="price" class="uk-input" type="number" step="0.01" placeholder="@lang('laralum_events::general.price_ph')">
-                                    </div>
-                                </div>
+            <label>@lang('laralum_events::general.place')</label>
+            <input value="{{ old('place', $event->place) }}" name="place" type="text" placeholder="@lang('laralum_events::general.place_ph')">
 
+            @php
+            $text = old('description', $event->description);
+            if ($settings->text_editor == 'markdown') {
+                $converter = new League\HTMLToMarkdown\HtmlConverter();
+                $text = $converter->convert($text);
+            }
+            @endphp
+            <label>@lang('laralum_events::general.description')</label>
+            <textarea name="description" rows="15" placeholder="{{ __('laralum_events::general.description_ph') }}">{{ $text }}</textarea>
+            @if ($settings->text_editor == 'markdown')
+                <i>@lang('laralum_events::general.markdown')</i>
+            @else
+                <i>@lang('laralum_events::general.plain_text')</i>
+            @endif
+            <label>@lang('laralum_events::general.price')</label>
+            <input value="{{ old('price', $event->price) }}" name="price" type="number" step="0.01" placeholder="@lang('laralum_events::general.price_ph')">
 
-                                <div class="uk-margin uk-grid-small uk-child-width-auto" uk-grid>
-                                    <label><input class="uk-checkbox" type="checkbox" name="public" @can('publish', \Laralum\Events\Models\Event::class) {{ old('public') ? 'checked' : (!$event->public ?: 'checked' )}} @else disabled @endif> @lang('laralum_events::general.public')</label>
-                                </div>
+            <input type="checkbox" name="public" {{ !old('public') ?: 'checked'}} @cannot('publish', \Laralum\Events\Models\Event::class) disabled @endcannot><label>@lang('laralum_events::general.public')</label>
+            <br><br><br>
 
-                                <div class="uk-margin">
-                                    <button type="submit" class="uk-button uk-button-primary uk-align-right">
-                                        <span class="ion-forward"></span>&nbsp; {{ __('laralum_events::general.edit_event') }}
-                                    </button>
-                                </div>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="uk-width-1-1@s uk-width-1-5@l uk-width-1-3@xl"></div>
-        </div>
-    </div>
-@endsection
-@section('js')
-    <script src="https://gitcdn.xyz/cdn/24aitor/Datedropper3/2da8e76e9646141710b48acce0757b6ab6f29354/datedropper.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/timedropper/1.0/timedropper.js"></script>
-
-    <script>
-        $( "#start_date" ).dateDropper();
-        $( "#end_date" ).dateDropper();
-        $( "#start_time" ).timeDropper({'format':'HH:mm', 'setCurrentTime':false});
-        $( "#end_time" ).timeDropper({'format':'HH:mm', 'setCurrentTime':false});
-    </script>
-
-    <script>
-        $("#color").keyup(function(){
-            $("#color").css({"color":$(this).val()});
-        });
-    </script>
-@endsection
+            <button type="submit">
+                @lang('laralum_events::general.edit_event')
+            </button>
+        </form>
+    </body>
+</html>

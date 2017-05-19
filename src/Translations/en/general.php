@@ -41,6 +41,7 @@ return [
     'view'            => 'View',
     'author'          => 'Author',
     'users'           => 'Users',
+    'information'     => 'Information',
 
     'duration'        => 'Duration',
     'status'        => 'Status',

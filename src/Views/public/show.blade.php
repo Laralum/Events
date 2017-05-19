@@ -9,39 +9,65 @@
     </head>
     <body>
         <h1>{{ $event->title }}</h1>
-        @if($start_datetime->isFuture())
-            @lang('laralum_events::general.time_left_starts')
-            <br>
-            {{ $start_datetime->diffForHumans() }}
-        @elseif ($end_datetime->isFuture())
-            @lang('laralum_events::general.time_left_ends')
-            <br>
-            {{ $end_datetime->diffForHumans() }}
-        @else
-            @lang('laralum_events::general.event_celebrated')
-        @endif
+        <center>
+            @if(!$event->started())
+                @lang('laralum_events::general.start_date')
+                <br>
+                {{ $event->startDatetime()->diffForHumans() }}
+            @elseif (!$event->finished())
+                @lang('laralum_events::general.end_date')
+                <br>
+                {{ $event->endDatetime()->diffForHumans() }}
+            @else
+                @lang('laralum_events::general.you_were_late')
+                <br>
+                @lang('laralum_events::general.event_celebrated')
+            @endif
+        </center>
 
-        <hr>
-        <dl>
-            <dt>@lang('laralum_events::general.description')</dt>
-            <dd>{{ $event->description }}</dd>
-            <dt>@lang('laralum_events::general.duration')</dt>
-            <dd>{{ $end_datetime->diffForHumans($start_datetime, true) }}</dd>
-            <dt>@lang('laralum_events::general.place')</dt>
-            <dd>{{ $event->place }}</dd>
-            <dt>@lang('laralum_events::general.status')</dt>
-            <dd>
-                @if ($event->public)
-                    @lang('laralum_events::general.published')
-                @else
-                    @lang('laralum_events::general.unpublished')
-                @endif
-            </dd>
-            <dt>@lang('laralum_events::general.start_date')</dt>
-            <dd>{{ $start_datetime->toCookieString() }}</dd>
-            <dt>@lang('laralum_events::general.end_date')</dt>
-            <dd>{{ $end_datetime->toCookieString() }}</dd>
-        </dl>
+            <hr>
+            <dl>
+                <dt>@lang('laralum_events::general.description')</dt>
+                <dd>{!! $event->description !!}</dd>
+                <dt>@lang('laralum_events::general.duration')</dt>
+                <dd>{{ $event->endDatetime()->diffForHumans($event->startDatetime(), true) }}</dd>
+                <dt>@lang('laralum_events::general.place')</dt>
+                <dd>{{ $event->place }}</dd>
+                <dt>@lang('laralum_events::general.status')</dt>
+                <dd>
+                    @if ($event->public)
+                        @lang('laralum_events::general.published')
+                    @else
+                        @lang('laralum_events::general.unpublished')
+                    @endif
+                </dd>
+                <dt>@lang('laralum_events::general.start_date')</dt>
+                <dd>{{ $event->startDatetime() }}</dd>
+                <dt>@lang('laralum_events::general.end_date')</dt>
+                <dd>{{ $event->endDatetime() }}</dd>
+            </dl>
 
+            <table>
+                <thead>
+                    <tr>
+                        <th>@lang('laralum::general.name')</th>
+                        <th>@lang('laralum::general.email')</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($users as $user)
+                        <tr>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+            {{ $users->links() }}
     </body>
 </html>

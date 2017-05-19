@@ -10,9 +10,8 @@
 @endsection
 @section('content')
     <div class="uk-container uk-container-large">
-        <div uk-grid>
-            <div class="uk-width-1-5@l uk-width-1-1@m"></div>
-            <div class="uk-width-3-5@l uk-width-1-1@m">
+        <div uk-grid class="uk-child-width-1-1">
+            <div>
                 <div class="uk-card uk-card-default">
                     <div class="uk-card-header">
                         @lang('laralum_events::general.events_list')
@@ -55,14 +54,14 @@
                                                     @endcan
                                                     @can('join', $event)
                                                         @if ($event->hasUser(Auth::user()))
-                                                            <form id="leave-form-{{$event->id}}" action="{{ route('laralum::events.leave', ['id' => $event->id]) }}" method="POST" style="display: none;">
+                                                            <form id="leave-form-{{ $event->id }}" action="{{ route('laralum::events.leave', ['id' => $event->id]) }}" method="POST" style="display: none;">
                                                                 {{ csrf_field() }}
                                                             </form>
                                                             <a class="uk-button uk-button-default uk-button-small" onclick="event.preventDefault(); document.getElementById('leave-form-{{$event->id}}').submit();">
                                                                 @lang('laralum_events::general.leave')
                                                             </a>
                                                         @else
-                                                            <form id="join-form-{{$event->id}}" action="{{ route('laralum::events.join', ['id' => $event->id]) }}" method="POST" style="display: none;">
+                                                            <form id="join-form-{{ $event->id }}" action="{{ route('laralum::events.join', ['id' => $event->id]) }}" method="POST" style="display: none;">
                                                                 {{ csrf_field() }}
                                                             </form>
                                                             <a class="uk-button uk-button-default uk-button-small" onclick="event.preventDefault(); document.getElementById('join-form-{{$event->id}}').submit();">
@@ -100,7 +99,6 @@
                     </div>
                 </div>
             </div>
-            <div class="uk-width-1-5@l uk-width-1-1@m"></div>
         </div>
     </div>
 @endsection

@@ -1,3 +1,6 @@
+@php
+    $settings = \Laralum\Events\Models\Settings::first();
+@endphp
 @extends('laralum::layouts.master')
 @section('icon', 'ion-plus-round')
 @section('title', __('laralum_events::general.create_event'))
@@ -77,6 +80,24 @@
                                         <input value="{{ old('place') }}" name="place" class="uk-input" type="text" placeholder="@lang('laralum_events::general.place_ph')">
                                     </div>
                                 </div>
+
+                                <div class="uk-margin">
+                                    <label class="uk-form-label">@lang('laralum_events::general.description')</label>
+                                        @php
+                                        $text = old('description');
+                                        if ($settings->text_editor == 'markdown') {
+                                            $converter = new League\HTMLToMarkdown\HtmlConverter();
+                                            $text = $converter->convert($text);
+                                        }
+                                        @endphp
+                                        <textarea name="description" class="uk-textarea" rows="15" placeholder="{{ __('laralum_events::general.description_ph') }}">{{ $text }}</textarea>
+                                        @if ($settings->text_editor == 'markdown')
+                                            <i>@lang('laralum_events::general.markdown')</i>
+                                        @else
+                                            <i>@lang('laralum_events::general.plain_text')</i>
+                                        @endif
+                                </div>
+
 
                                 <div class="uk-margin">
                                     <label class="uk-form-label">@lang('laralum_events::general.description')</label>
