@@ -2,8 +2,8 @@
 
 namespace Laralum\Events\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use \Carbon\Carbon;
 
 class Event extends Model
 {
@@ -23,7 +23,7 @@ class Event extends Model
         'title', 'user_id', 'description',
         'start_date', 'start_time', 'end_date',
         'end_time', 'price', 'color',
-        'place', 'public'
+        'place', 'public',
     ];
 
     /**
@@ -51,7 +51,7 @@ class Event extends Model
     {
         return EventUser::where([
             'event_id' => $this->id,
-            'user_id' => $user->id
+            'user_id'  => $user->id,
         ])->first();
     }
 
@@ -65,7 +65,7 @@ class Event extends Model
         if (!$this->hasUser($user)) {
             return EventUser::create([
                 'event_id' => $this->id,
-                'user_id' => $user->id
+                'user_id'  => $user->id,
             ]);
         }
 
@@ -96,7 +96,7 @@ class Event extends Model
         if ($this->hasUser($user)) {
             return EventUser::where([
                 'event_id' => $this->id,
-                'user_id' => $user->id
+                'user_id'  => $user->id,
             ])->first()->delete();
         }
 
@@ -148,7 +148,7 @@ class Event extends Model
     /**
      * Returns true if event has started or passed.
      *
-     * @return boolean
+     * @return bool
      */
     public function started()
     {
@@ -158,7 +158,7 @@ class Event extends Model
     /**
      * Returns true if event has finished.
      *
-     * @return boolean
+     * @return bool
      */
     public function finished()
     {

@@ -18,7 +18,7 @@ Route::group([
 
         Route::resource($public_url, 'PublicEventController', [
             'parameters' => [
-                $public_url => 'event'
+                $public_url => 'event',
             ],
             'names' => [
                 'index'   => 'index',
@@ -28,7 +28,7 @@ Route::group([
                 'edit'    => 'edit',
                 'update'  => 'update',
                 'destroy' => 'destroy',
-            ]
+            ],
         ]);
     });
 

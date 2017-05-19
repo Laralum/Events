@@ -2,16 +2,15 @@
 
 namespace Laralum\Events\Controllers;
 
-use GrahamCampbell\Markdown\Facades\Markdown;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use Laralum\Events\Models\EventUser;
-use Laralum\Events\Models\Settings;
-use Laralum\Events\Models\Event;
-use Laralum\Users\Models\User;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use GrahamCampbell\Markdown\Facades\Markdown;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Laralum\Events\Models\Event;
+use Laralum\Events\Models\Settings;
+use Laralum\Users\Models\User;
 
 class EventController extends Controller
 {
@@ -25,7 +24,7 @@ class EventController extends Controller
         $this->authorize('view', Event::class);
 
         return view('laralum_events::laralum.index', [
-            'events' => Event::orderBy('id', 'desc')->paginate(50)
+            'events' => Event::orderBy('id', 'desc')->paginate(50),
         ]);
     }
 
@@ -44,7 +43,7 @@ class EventController extends Controller
     /**
      * Get Carbon start datetime and end datemime.
      *
-     * @param  mixed $object
+     * @param mixed $object
      *
      * @return array
      */
@@ -64,7 +63,8 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -75,8 +75,8 @@ class EventController extends Controller
         $validator = Validator::make($request->all(), [
             'start_date' => 'required|date',
             'start_time' => 'required|date_format:H:i',
-            'end_date' => 'required|date',
-            'end_time' => 'required|date_format:H:i',
+            'end_date'   => 'required|date',
+            'end_time'   => 'required|date_format:H:i',
         ]);
 
         if ($validator->fails()) {
@@ -85,11 +85,11 @@ class EventController extends Controller
 
         // Check others
         $validator = Validator::make($request->all(), [
-            'title' => 'required|max:191',
+            'title'       => 'required|max:191',
             'description' => 'required|max:2500',
-            'color' => 'max:191',
-            'place' => 'max:191',
-            'price' => 'required|numeric|max:999999999.99'
+            'color'       => 'max:191',
+            'place'       => 'max:191',
+            'price'       => 'required|numeric|max:999999999.99',
         ]);
 
         [$start_datetime, $end_datetime] = self::getDates($request);
@@ -109,17 +109,17 @@ class EventController extends Controller
         }
 
         Event::create([
-            'title'   => $request->title,
-            'start_date' => $request->start_date,
-            'start_time' => $request->start_time,
-            'end_date' => $request->end_date,
-            'end_time' => $request->end_time,
-            'user_id'  => Auth::id(),
+            'title'       => $request->title,
+            'start_date'  => $request->start_date,
+            'start_time'  => $request->start_time,
+            'end_date'    => $request->end_date,
+            'end_time'    => $request->end_time,
+            'user_id'     => Auth::id(),
             'description' => $desc,
-            'color'  => $request->color,
-            'place'  => $request->place,
-            'price'  => $request->price,
-            'public' => $user->can('publish', Event::class) ? $request->has('public') : false,
+            'color'       => $request->color,
+            'place'       => $request->place,
+            'price'       => $request->price,
+            'public'      => $user->can('publish', Event::class) ? $request->has('public') : false,
         ]);
 
         return redirect()->route('laralum::events.index')->with('success', __('laralum_events::general.event_added'));
@@ -128,7 +128,8 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \Laralum\Events\Models\Event $event
+     * @param \Laralum\Events\Models\Event $event
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Event $event)
@@ -137,14 +138,15 @@ class EventController extends Controller
 
         return view('laralum_events::laralum.show', [
             'event' => $event,
-            'users' => $event->users()->paginate(50)
+            'users' => $event->users()->paginate(50),
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \Laralum\Events\Models\Event $event
+     * @param \Laralum\Events\Models\Event $event
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Event $event)
@@ -157,8 +159,8 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request     $request
-     * @param  \Laralum\Events\Models\Event $event
+     * @param \Illuminate\Http\Request     $request
+     * @param \Laralum\Events\Models\Event $event
      *
      * @return \Illuminate\Http\Response
      */
@@ -180,11 +182,11 @@ class EventController extends Controller
 
         // Check others
         $validator = Validator::make($request->all(), [
-            'title' => 'required|max:191',
+            'title'       => 'required|max:191',
             'description' => 'required|max:2500',
-            'color' => 'max:191',
-            'place' => 'max:191',
-            'price' => 'required|numeric|max:999999999.99'
+            'color'       => 'max:191',
+            'place'       => 'max:191',
+            'price'       => 'required|numeric|max:999999999.99',
         ]);
 
         [$start_datetime, $end_datetime] = self::getDates($request);
@@ -204,16 +206,16 @@ class EventController extends Controller
         }
 
         $event->update([
-            'title'   => $request->title,
-            'start_date' => $request->start_date,
-            'start_time' => $request->start_time,
-            'end_date' => $request->end_date,
-            'end_time' => $request->end_time,
+            'title'       => $request->title,
+            'start_date'  => $request->start_date,
+            'start_time'  => $request->start_time,
+            'end_date'    => $request->end_date,
+            'end_time'    => $request->end_time,
             'description' => $desc,
-            'color'  => $request->color,
-            'place'  => $request->place,
-            'price'  => $request->price,
-            'public' => $user->can('publish', Event::class) ? $request->has('public') : false,
+            'color'       => $request->color,
+            'place'       => $request->place,
+            'price'       => $request->price,
+            'public'      => $user->can('publish', Event::class) ? $request->has('public') : false,
         ]);
 
         $event->touch();
@@ -224,7 +226,7 @@ class EventController extends Controller
     /**
      * confirm destroy of the specified resource from storage.
      *
-     * @param  \Laralum\Events\Models\Event $event
+     * @param \Laralum\Events\Models\Event $event
      *
      * @return \Illuminate\Http\Response
      */
@@ -242,7 +244,8 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Laralum\Events\Models\Event $event
+     * @param \Laralum\Events\Models\Event $event
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Event $event)
@@ -258,7 +261,8 @@ class EventController extends Controller
     /**
      * Join to the specified resource from storage.
      *
-     * @param  \Laralum\Events\Models\Event $event
+     * @param \Laralum\Events\Models\Event $event
+     *
      * @return \Illuminate\Http\Response
      */
     public function join(Event $event)
@@ -273,7 +277,8 @@ class EventController extends Controller
     /**
      * Leave from the specified resource from storage.
      *
-     * @param  \Laralum\Events\Models\Event $event
+     * @param \Laralum\Events\Models\Event $event
+     *
      * @return \Illuminate\Http\Response
      */
     public function leave(Event $event)
