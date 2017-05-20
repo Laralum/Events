@@ -4,7 +4,7 @@ namespace Laralum\Events;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use Laralum\Blog\Policies\SettingsPolicy;
+use Laralum\Events\Policies\SettingsPolicy;
 use Laralum\Events\Models\Event;
 use Laralum\Events\Models\Settings;
 use Laralum\Events\Policies\EventPolicy;
