@@ -4,10 +4,10 @@ namespace Laralum\Events;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use Laralum\Events\Policies\SettingsPolicy;
 use Laralum\Events\Models\Event;
 use Laralum\Events\Models\Settings;
 use Laralum\Events\Policies\EventPolicy;
+use Laralum\Events\Policies\SettingsPolicy;
 use Laralum\Permissions\PermissionsChecker;
 
 class EventsServiceProvider extends ServiceProvider
