@@ -89,7 +89,7 @@ class EventController extends Controller
         ]);
 
         $start_datetime = self::getDatetime($request->start_date, $request->start_time);
-        $end_datetime   = self::getDatetime($request->end_date, $request->end_time);
+        $end_datetime = self::getDatetime($request->end_date, $request->end_time);
 
         if ($end_datetime->lte($start_datetime)) {
             $validator->errors()->add('end_date', __('laralum_events::general.end_date_after_start_date'));
@@ -187,7 +187,7 @@ class EventController extends Controller
         ]);
 
         $start_datetime = self::getDatetime($request->start_date, $request->start_time);
-        $end_datetime   = self::getDatetime($request->end_date, $request->end_time);
+        $end_datetime = self::getDatetime($request->end_date, $request->end_time);
 
         if ($end_datetime->lte($start_datetime)) {
             $validator->errors()->add('end_date', __('laralum_events::general.end_date_after_start_date'));
