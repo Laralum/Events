@@ -98,14 +98,6 @@
                                         @endif
                                 </div>
 
-
-                                <div class="uk-margin">
-                                    <label class="uk-form-label">@lang('laralum_events::general.description')</label>
-                                    <div class="uk-form-controls">
-                                        <input value="{{ old('description') }}" name="description" class="uk-input" type="text" placeholder="@lang('laralum_events::general.description_ph')">
-                                    </div>
-                                </div>
-
                                 <div class="uk-margin">
                                     <label class="uk-form-label">@lang('laralum_events::general.price')</label>
                                     <div class="uk-form-controls">
