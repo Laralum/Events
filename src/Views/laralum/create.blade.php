@@ -39,45 +39,60 @@
                                     </div>
                                 </div>
 
-                                <div class="uk-margin">
-                                    <label class="uk-form-label">@lang('laralum_events::general.start_date')</label>
-                                    <div class="uk-form-controls">
-                                        <input id="start_date" value="{{ old('start_date') }}" name="start_date" class="uk-input" type="text" data-large-mode="true" data-large-default="true" data-init-set="false" data-theme="laralum-date" data-format="Y-m-d" data-lang="{{ App::getLocale() }}" placeholder="@lang('laralum_events::general.start_date_ph')">
-                                    </div>
-                                </div>
+                                <div class="uk-child-width-1-1@s uk-child-width-1-2@m" uk-grid>
 
-                                <div class="uk-margin">
-                                    <label class="uk-form-label">@lang('laralum_events::general.start_time')</label>
-                                    <div class="uk-form-controls">
-                                        <input value="{{ old('start_time', "00:00") }}" id="start_time" name="start_time" class="uk-input" type="text" placeholder="@lang('laralum_events::general.start_time_ph')">
+                                    <div class="uk-margin uk-margin-top">
+                                        <label class="uk-form-label">@lang('laralum_events::general.start_date')</label>
+                                        <div class="uk-form-controls">
+                                            <input id="start_date" value="{{ old('start_date') }}" name="start_date" class="uk-input" type="text" data-large-mode="true" data-large-default="true" data-init-set="false" data-theme="laralum-date" data-format="Y-m-d" data-lang="{{ App::getLocale() }}" placeholder="@lang('laralum_events::general.start_date_ph')">
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="uk-margin">
-                                    <label class="uk-form-label">@lang('laralum_events::general.end_date')</label>
-                                    <div class="uk-form-controls">
-                                        <input id="end_date" value="{{ old('end_date') }}" name="end_date" class="uk-input" type="text" data-large-mode="true" data-large-default="true" data-init-set="false" data-theme="laralum-date" data-format="Y-m-d" data-lang="{{ App::getLocale() }}" placeholder="@lang('laralum_events::general.end_date_ph')">
+                                    <div class="uk-margin">
+                                        <label class="uk-form-label">@lang('laralum_events::general.start_time')</label>
+                                        <div class="uk-form-controls">
+                                            <input value="{{ old('start_time', "00:00") }}" id="start_time" name="start_time" class="uk-input" type="text" placeholder="@lang('laralum_events::general.start_time_ph')">
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="uk-margin">
-                                    <label class="uk-form-label">@lang('laralum_events::general.end_time')</label>
-                                    <div class="uk-form-controls">
-                                        <input value="{{ old('end_time', "00:00") }}" id="end_time" name="end_time" class="uk-input" type="text" placeholder="@lang('laralum_events::general.end_time_ph')">
+                                    <div class="uk-margin">
+                                        <label class="uk-form-label">@lang('laralum_events::general.end_date')</label>
+                                        <div class="uk-form-controls">
+                                            <input id="end_date" value="{{ old('end_date') }}" name="end_date" class="uk-input" type="text" data-large-mode="true" data-large-default="true" data-init-set="false" data-theme="laralum-date" data-format="Y-m-d" data-lang="{{ App::getLocale() }}" placeholder="@lang('laralum_events::general.end_date_ph')">
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="uk-margin">
-                                    <label class="uk-form-label">@lang('laralum_events::general.color')</label>
-                                    <div class="uk-form-controls">
-                                        <input value="{{ old('color') }}" id="color" name="color" class="uk-input" type="text" placeholder="@lang('laralum_events::general.color_ph')">
+                                    <div class="uk-margin">
+                                        <label class="uk-form-label">@lang('laralum_events::general.end_time')</label>
+                                        <div class="uk-form-controls">
+                                            <input value="{{ old('end_time', "00:00") }}" id="end_time" name="end_time" class="uk-input" type="text" placeholder="@lang('laralum_events::general.end_time_ph')">
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="uk-margin">
-                                    <label class="uk-form-label">@lang('laralum_events::general.place')</label>
-                                    <div class="uk-form-controls">
-                                        <input value="{{ old('place') }}" name="place" class="uk-input" type="text" placeholder="@lang('laralum_events::general.place_ph')">
+                                    <div class="uk-margin">
+                                        <label class="uk-form-label">@lang('laralum_events::general.color')</label>
+                                        <div class="uk-form-controls">
+                                            <input value="{{ old('color') }}" id="color" name="color" class="uk-input" type="text" placeholder="@lang('laralum_events::general.color_ph')">
+                                        </div>
+                                    </div>
+
+                                    <div class="uk-margin">
+                                        <label class="uk-form-label">@lang('laralum_events::general.place')</label>
+                                        <div class="uk-form-controls">
+                                            <input value="{{ old('place') }}" name="place" class="uk-input" type="text" placeholder="@lang('laralum_events::general.place_ph')">
+                                        </div>
+                                    </div>
+
+                                    <div class="uk-margin">
+                                        <label class="uk-form-label">@lang('laralum_events::general.price')</label>
+                                        <div class="uk-form-controls">
+                                            <input value="{{ old('price') }}" name="price" class="uk-input" type="number" step="0.01" placeholder="@lang('laralum_events::general.price_ph')">
+                                        </div>
+                                    </div>
+
+                                    <div class="uk-margin">
+                                        <label class="uk-form-label uk-margin-small-bottom">@lang('laralum_events::general.status')</label>
+                                        <label><input class="uk-checkbox" type="checkbox" name="public" @can('publish', \Laralum\Events\Models\Event::class) {{ !old('public') ?: 'checked'}} @else disabled @endif> @lang('laralum_events::general.public')</label>
                                     </div>
                                 </div>
 
@@ -98,17 +113,6 @@
                                         @endif
                                 </div>
 
-                                <div class="uk-margin">
-                                    <label class="uk-form-label">@lang('laralum_events::general.price')</label>
-                                    <div class="uk-form-controls">
-                                        <input value="{{ old('price') }}" name="price" class="uk-input" type="number" step="0.01" placeholder="@lang('laralum_events::general.price_ph')">
-                                    </div>
-                                </div>
-
-
-                                <div class="uk-margin uk-grid-small uk-child-width-auto" uk-grid>
-                                    <label><input class="uk-checkbox" type="checkbox" name="public" @can('publish', \Laralum\Events\Models\Event::class) {{ !old('public') ?: 'checked'}} @else disabled @endif> @lang('laralum_events::general.public')</label>
-                                </div>
 
                                 <div class="uk-margin">
                                     <button type="submit" class="uk-button uk-button-primary uk-align-right">
