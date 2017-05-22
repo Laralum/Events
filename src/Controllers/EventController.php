@@ -292,7 +292,7 @@ class EventController extends Controller
      * Make author of to the specified resource from storage.
      *
      * @param \Laralum\Events\Models\Event $event
-     * @param \Laralum\Users\Models\User $user
+     * @param \Laralum\Users\Models\User   $user
      *
      * @return \Illuminate\Http\Response
      */
@@ -309,7 +309,7 @@ class EventController extends Controller
      * Undo author from the specified resource from storage.
      *
      * @param \Laralum\Events\Models\Event $event
-     * @param \Laralum\Users\Models\User $user
+     * @param \Laralum\Users\Models\User   $user
      *
      * @return \Illuminate\Http\Response
      */
