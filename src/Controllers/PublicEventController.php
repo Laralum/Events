@@ -23,7 +23,7 @@ class PublicEventController extends Controller
     {
         $this->authorize('publicView', Event::class);
 
-        return view('laralum_events::public.index', ['events' => Event::where('public', true)->orderBy('id', 'desc')->paginate(50)]);
+        return view('laralum_events::public.index', ['events' => Event::where('public', true)->orderBy('id', 'desc')->get()]);
     }
 
     /**
@@ -45,17 +45,13 @@ class PublicEventController extends Controller
      *
      * @return array
      */
-    private function getDates($object)
+    private function getDatetime($datein, $timein)
     {
-        $date = explode('-', $object->start_date);
-        $time = explode(':', $object->start_time);
-        $start_datetime = Carbon::create($date[0], $date[1], $date[2], $time[0], $time[1]);
+        $date = explode('-', $datein);
+        $time = explode(':', $timein);
+        $datetime = Carbon::create($date[0], $date[1], $date[2], $time[0], $time[1]);
 
-        $date = explode('-', $object->end_date);
-        $time = explode(':', $object->end_time);
-        $end_datetime = Carbon::create($date[0], $date[1], $date[2], $time[0], $time[1]);
-
-        return [$start_datetime, $end_datetime];
+        return $datetime;
     }
 
     /**
@@ -90,7 +86,8 @@ class PublicEventController extends Controller
             'price'       => 'required|numeric|max:999999999.99',
         ]);
 
-        [$start_datetime, $end_datetime] = self::getDates($request);
+        $start_datetime = self::getDatetime($request->start_date, $request->start_time);
+        $end_datetime = self::getDatetime($request->end_date, $request->end_time);
 
         if ($end_datetime->lte($start_datetime)) {
             $validator->errors()->add('end_date', __('laralum_events::general.end_date_after_start_date'));
@@ -189,7 +186,8 @@ class PublicEventController extends Controller
             'price'       => 'required|numeric|max:999999999.99',
         ]);
 
-        [$start_datetime, $end_datetime] = self::getDates($request);
+        $start_datetime = self::getDatetime($request->start_date, $request->start_time);
+        $end_datetime = self::getDatetime($request->end_date, $request->end_time);
 
         if ($end_datetime->lte($start_datetime)) {
             $validator->errors()->add('end_date', __('laralum_events::general.end_date_after_start_date'));

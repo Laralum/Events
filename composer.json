@@ -2,7 +2,7 @@
     "name": "laralum/events",
     "description": "Events module for laralum",
     "require": {
-        "laralum/laralum": "^1.1.2|1.*",
+        "laralum/laralum": "^1.1.2",
         "graham-campbell/markdown": "7.*",
         "league/html-to-markdown": "4.*"
     },
