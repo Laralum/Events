@@ -23,7 +23,7 @@ class PublicEventController extends Controller
     {
         $this->authorize('publicView', Event::class);
 
-        return view('laralum_events::public.index', ['events' => Event::where('public', true)->orderBy('id', 'desc')]);
+        return view('laralum_events::public.index', ['events' => Event::where('public', true)->orderBy('id', 'desc')->get()]);
     }
 
     /**
