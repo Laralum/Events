@@ -111,16 +111,43 @@
                                         <tr>
                                             <th>@lang('laralum::general.user')</th>
                                             <th>@lang('laralum::general.email')</th>
+                                            <th>@lang('laralum::general.actions')</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @forelse( $users as $user )
                                             <tr>
-                                                <td>{{ $user->name }}</td>
+                                                <td>{{ $user->name }}&emsp;@if($event->hasResponsible($user))<label class="uk-label">@lang('laralum_events::general.responsible')</label>@endif</td>
                                                 <td>{{ $user->email }}</td>
+                                                <td class="uk-table-shrink">
+                                                    <div class="uk-button-group">
+                                                        @can('update', $event)
+                                                            @if ($event->hasResponsible($user))
+                                                                <form id="leave-form-{{ $event->id .'-'. $user->id }}" action="{{ route('laralum::events.undo.responsible', ['event' => $event->id, 'user' => $user->id]) }}" method="POST" style="display: none;">
+                                                                    {{ csrf_field() }}
+                                                                </form>
+                                                                <a class="uk-button uk-button-danger uk-button-small" onclick="event.preventDefault(); document.getElementById('leave-form-{{ $event->id .'-'. $user->id }}').submit();">
+                                                                    @lang('laralum_events::general.undo_responsible')
+                                                                </a>
+                                                            @else
+                                                                <form id="join-form-{{ $event->id .'-'. $user->id }}" action="{{ route('laralum::events.make.responsible', ['event' => $event->id, 'user' => $user->id]) }}" method="POST" style="display: none;">
+                                                                    {{ csrf_field() }}
+                                                                </form>
+                                                                <a class="uk-button uk-button-primary uk-button-small" onclick="event.preventDefault(); document.getElementById('join-form-{{ $event->id .'-'. $user->id }}').submit();">
+                                                                    @lang('laralum_events::general.make_responsible')
+                                                                </a>
+                                                            @endif
+                                                        @else
+                                                            <button disabled class="uk-button uk-button-default uk-button-small">
+                                                                @lang('laralum_events::general.join')
+                                                            </button>
+                                                        @endcan
+                                                    </div>
+                                                </td>
                                             </tr>
                                         @empty
                                             <tr>
+                                                <td>-</td>
                                                 <td>-</td>
                                                 <td>-</td>
                                             </tr>

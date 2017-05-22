@@ -39,7 +39,65 @@ class Event extends Model
      */
     public function users()
     {
-        return $this->belongsToMany('\Laralum\Users\Models\User', 'laralum_event_user');
+        return $this->belongsToMany('\Laralum\Users\Models\User', 'laralum_event_user')->withPivot('responsible');
+    }
+
+    /**
+     * Returns true if the event have the specified user as responsible.
+     *
+     * @param mixed $user
+     */
+    public function hasResponsible($user)
+    {
+        return $this->users()->where('user_id', $user->id)->first()->pivot->responsible;
+    }
+
+    /**
+     * Adds a responsible into the event.
+     *
+     * @param mixed $user
+     */
+    public function addResponsible($user)
+    {
+        return $this->users()->UpdateExistingPivot($user->id, ['responsible' => true]);
+    }
+
+    /**
+     * Deletes a responsible from the event.
+     *
+     * @param mixed $user
+     */
+    public function deleteResponsible($user)
+    {
+        return $this->users()->UpdateExistingPivot($user->id, ['responsible' => false]);
+    }
+
+    /**
+     * Adds authors into the event.
+     *
+     * @param array $users
+     */
+    public function addAuthors($users)
+    {
+        foreach ($users as $user) {
+            $this->addAuthor($user);
+        }
+
+        return true;
+    }
+
+    /**
+     * Deletes the specified role users.
+     *
+     * @param array $users
+     */
+    public function deleteAuthors($users)
+    {
+        foreach ($users as $user) {
+            $this->deleteAuthor($user);
+        }
+
+        return true;
     }
 
     /**
@@ -49,10 +107,11 @@ class Event extends Model
      */
     public function hasUser($user)
     {
-        return EventUser::where([
-            'event_id' => $this->id,
-            'user_id'  => $user->id,
-        ])->first();
+        return $this->users()->where('user_id', $user->id)->first();
+        // return EventUser::where([
+        //     'event_id' => $this->id,
+        //     'user_id'  => $user->id,
+        // ])->first();
     }
 
     /**
@@ -62,14 +121,7 @@ class Event extends Model
      */
     public function addUser($user)
     {
-        if (!$this->hasUser($user)) {
-            return EventUser::create([
-                'event_id' => $this->id,
-                'user_id'  => $user->id,
-            ]);
-        }
-
-        return false;
+        return $this->users()->attach($user->id);
     }
 
     /**
@@ -93,14 +145,7 @@ class Event extends Model
      */
     public function deleteUser($user)
     {
-        if ($this->hasUser($user)) {
-            return EventUser::where([
-                'event_id' => $this->id,
-                'user_id'  => $user->id,
-            ])->first()->delete();
-        }
-
-        return false;
+        return $this->users()->detach($user->id);
     }
 
     /**

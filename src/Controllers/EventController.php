@@ -287,4 +287,38 @@ class EventController extends Controller
         return redirect()->route('laralum::events.index')
             ->with('success', __('laralum_events::general.left_event', ['id' => $event->id]));
     }
+
+    /**
+     * Make author of to the specified resource from storage.
+     *
+     * @param \Laralum\Events\Models\Event $event
+     * @param \Laralum\Users\Models\User $user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function makeResponsible(Event $event, User $user)
+    {
+        $this->authorize('update', $event);
+        $event->addResponsible($user);
+
+        return redirect()->route('laralum::events.show', ['event' => $event->id])
+            ->with('success', __('laralum_events::general.responsible_added', ['event_id' => $event->id, 'user_id' => $user->id]));
+    }
+
+    /**
+     * Undo author from the specified resource from storage.
+     *
+     * @param \Laralum\Events\Models\Event $event
+     * @param \Laralum\Users\Models\User $user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function undoResponsible(Event $event, User $user)
+    {
+        $this->authorize('update', $event);
+        $event->deleteResponsible($user);
+
+        return redirect()->route('laralum::events.show', ['event' => $event->id])
+            ->with('success', __('laralum_events::general.responsible_deleted', ['event_id' => $event->id, 'user_id' => $user->id]));
+    }
 }

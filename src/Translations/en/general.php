@@ -99,4 +99,11 @@ return [
 
     'join'  => 'Join',
     'leave' => 'Leave',
+
+    'make_responsible'    => 'Make Responsible',
+    'undo_responsible'    => 'Undo Responsible',
+    'responsible_added'   => 'Responsible #:user_id added into event #:event_id',
+    'responsible_deleted' => 'Responsible #:user_id deleted from event #:event_id',
+    'responsible'         => 'Responsible',
+
 ];

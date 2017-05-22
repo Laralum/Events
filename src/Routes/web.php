@@ -44,6 +44,8 @@ Route::group([
         Route::get('events/{event}/delete', 'EventController@confirmDestroy')->name('events.destroy.confirm');
         Route::post('events/{event}/join', 'EventController@join')->name('events.join');
         Route::post('events/{event}/leave', 'EventController@leave')->name('events.leave');
+        Route::post('events/{event}/make/responsible/{user}', 'EventController@makeResponsible')->name('events.make.responsible');
+        Route::post('events/{event}/undo/responsible/{user}', 'EventController@undoResponsible')->name('events.undo.responsible');
         Route::resource('events', 'EventController');
     });
 

@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>@lang('laralum_events::general.events_list') - {{ Laralum\Settings\Models\Settings::first()->appname }}</title>
-        <link rel="stylesheet" href="https://gitcdn.xyz/repo/24aitor/CLMaterial/master/src/css/clmaterial.min.css">
+        <link rel="stylesheet" href="{{ \Laralum\Laralum\Packages::css() }}">
     </head>
     <body>
         <h1>{{ $event->title }}</h1>
@@ -54,7 +54,7 @@
                 <tbody>
                     @forelse($users as $user)
                         <tr>
-                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->name }}@if($event->hasResponsible($user))&emsp;<badge>@lang('laralum_events::general.responsible')</badge>@endif</td>
                             <td>{{ $user->email }}</td>
                         </tr>
                     @empty
