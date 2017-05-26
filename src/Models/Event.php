@@ -219,7 +219,7 @@ class Event extends Model
     }
     
     /**
-     * Returns the duration as a Carbon instance.
+     * Returns the duration as a human readable string.
      *
      * @return bool
      */
