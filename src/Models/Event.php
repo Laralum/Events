@@ -41,6 +41,14 @@ class Event extends Model
     {
         return $this->belongsToMany('\Laralum\Users\Models\User', 'laralum_event_user')->withPivot('responsible');
     }
+    
+    /**
+     * Returns all the events responsibles.
+     */
+    public function responsibles()
+    {
+        return $this->users()->wherePivot('responsible', true)->get();
+    }
 
     /**
      * Returns true if the event have the specified user as responsible.
