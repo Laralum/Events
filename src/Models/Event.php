@@ -225,6 +225,6 @@ class Event extends Model
      */
     public function duration()
     {
-        return $this->endDatetime()->diffForHumans($event->startDatetime(), true);
+        return $this->endDatetime()->diffForHumans($this->startDatetime(), true);
     }
 }
