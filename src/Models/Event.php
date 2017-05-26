@@ -217,4 +217,14 @@ class Event extends Model
     {
         return $this->endDatetime()->isPast();
     }
+    
+    /**
+     * Returns the duration as a Carbon instance.
+     *
+     * @return bool
+     */
+    public function duration()
+    {
+        return $this->endDatetime()->diffForHumans($event->startDatetime(), true);
+    }
 }
