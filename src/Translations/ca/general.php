@@ -87,4 +87,6 @@ return [
     'left_event'                => "Has estat desunit l'event #:id",
     'join'                      => 'Participar',
     'leave'                     => 'No Participar',
+    'public_routes'             => 'Rutes Publiques',
+    'public_routes_desc'        => 'Habilitar rutes publiques',
 ];

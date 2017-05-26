@@ -87,4 +87,6 @@ return [
     'left_event'                => "Vous avez quitté l'événement #:id",
     'join'                      => 'Joindre',
     'leave'                     => 'Laisser',
+    'public_routes'             => 'Routes Publiques',
+    'public_routes_desc'        => 'Activer les routes publiques',
 ];

@@ -87,4 +87,6 @@ return [
     'left_event'                => 'Sie haben die Veranstaltung #:id verlassen',
     'join'                      => 'Beitreten',
     'leave'                     => 'Verlassen',
+    'public_routes'             => 'Öffentliche Wege',
+    'public_routes_desc'        => 'Aktivieren öffentliche Straßen',
 ];

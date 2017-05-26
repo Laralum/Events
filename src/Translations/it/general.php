@@ -87,4 +87,6 @@ return [
     'left_event'                => "Hai lasciato l'evento #:id",
     'join'                      => 'Aderire',
     'leave'                     => 'Partire',
+    'public_routes'             => 'Strade Pubbliche',
+    'public_routes_desc'        => 'Abilita strade pubbliche',
 ];

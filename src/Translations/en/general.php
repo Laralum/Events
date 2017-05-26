@@ -106,4 +106,7 @@ return [
     'responsible_deleted' => 'Responsible #:user_id deleted from event #:event_id',
     'responsible'         => 'Responsible',
 
+    'public_routes'       => 'Public Routes',
+    'public_routes_desc'  => 'Enable public routes',
+
 ];

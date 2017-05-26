@@ -29,11 +29,21 @@
                 </div>
             </div>
 
-                <div class="uk-margin uk-align-right">
-                    <button type="submit" class="uk-button uk-button-primary">
-                        <span class="ion-forward"></span>&nbsp; @lang('laralum_events::general.save_settings')
-                    </button>
+            <div class="uk-margin">
+                <label class="uk-form-label">@lang('laralum_events::general.public_routes')</label>
+                <div class="uk-form-controls">
+                    <input class="uk-hidden" name="public_routes" value="0"/>
+                    <label><input class="uk-checkbox" type="checkbox" name="public_routes" value="1" {{ !old('public_permissions', $settings->public_routes) ?: 'checked="checked"' }}> @lang('laralum_events::general.public_routes')</label>
+                    <br>
+                    <small class="uk-text-meta">@lang('laralum_events::general.public_routes_desc')</small>
                 </div>
+            </div>
+
+            <div class="uk-margin uk-align-right">
+                <button type="submit" class="uk-button uk-button-primary">
+                    <span class="ion-forward"></span>&nbsp; @lang('laralum_events::general.save_settings')
+                </button>
+            </div>
 
             </fieldset>
         </form>
