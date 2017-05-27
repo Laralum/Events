@@ -27,7 +27,7 @@ class Event extends Model
     ];
 
     /**
-     * Return the event author.
+     * Return the event creator.
      */
     public function user()
     {
@@ -78,34 +78,6 @@ class Event extends Model
     public function deleteResponsible($user)
     {
         return $this->users()->UpdateExistingPivot($user->id, ['responsible' => false]);
-    }
-
-    /**
-     * Adds authors into the event.
-     *
-     * @param array $users
-     */
-    public function addAuthors($users)
-    {
-        foreach ($users as $user) {
-            $this->addAuthor($user);
-        }
-
-        return true;
-    }
-
-    /**
-     * Deletes the specified role users.
-     *
-     * @param array $users
-     */
-    public function deleteAuthors($users)
-    {
-        foreach ($users as $user) {
-            $this->deleteAuthor($user);
-        }
-
-        return true;
     }
 
     /**
