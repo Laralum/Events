@@ -29,7 +29,7 @@ class Event extends Model
     /**
      * Return the event creator.
      */
-    public function user()
+    public function creator()
     {
         return $this->belongsTo('\Laralum\Users\Models\User');
     }
