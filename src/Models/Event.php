@@ -41,7 +41,7 @@ class Event extends Model
     {
         return $this->belongsToMany('\Laralum\Users\Models\User', 'laralum_event_user')->withPivot('responsible');
     }
-    
+
     /**
      * Returns all the events responsibles.
      */
@@ -217,7 +217,7 @@ class Event extends Model
     {
         return $this->endDatetime()->isPast();
     }
-    
+
     /**
      * Returns the duration as a human readable string.
      *
