@@ -13,6 +13,6 @@ trait Events
 
     public function responsibleEvents()
     {
-        return $this->joinedEvents()->wherePivot('responsible', true)->get();
+        return $this->joinedEvents()->wherePivot('responsible', true);
     }
 }
