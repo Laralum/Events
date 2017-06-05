@@ -1,6 +1,6 @@
 <?php
 
-namespace Laralum\Roles\Traits;
+namespace Laralum\Events\Traits;
 
 use Laralum\Events\Models\Event;
 
