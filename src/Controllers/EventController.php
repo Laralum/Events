@@ -69,18 +69,10 @@ class EventController extends Controller
 
         // Check dates
         $validator = Validator::make($request->all(), [
-            'start_date' => 'required|date',
-            'start_time' => 'required|date_format:H:i',
-            'end_date'   => 'required|date',
-            'end_time'   => 'required|date_format:H:i',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-        // Check others
-        $validator = Validator::make($request->all(), [
+            'start_date'  => 'required|date',
+            'start_time'  => 'required|date_format:H:i',
+            'end_date'    => 'required|date',
+            'end_time'    => 'required|date_format:H:i',
             'title'       => 'required|max:191',
             'description' => 'required|max:2500',
             'color'       => 'max:191',
@@ -88,16 +80,16 @@ class EventController extends Controller
             'price'       => 'required|numeric|max:999999999.99',
         ]);
 
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
         $start_datetime = self::getDatetime($request->start_date, $request->start_time);
         $end_datetime = self::getDatetime($request->end_date, $request->end_time);
 
         if ($end_datetime->lte($start_datetime)) {
             $validator->errors()->add('end_date', __('laralum_events::general.end_date_after_start_date'));
 
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-        
-        if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
@@ -171,24 +163,20 @@ class EventController extends Controller
 
         // Check dates
         $validator = Validator::make($request->all(), [
-            'start_date' => 'required|date',
-            'start_time' => 'required|date_format:H:i',
-            'end_date'   => 'required|date',
-            'end_time'   => 'required|date_format:H:i',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-        // Check others
-        $validator = Validator::make($request->all(), [
+            'start_date'  => 'required|date',
+            'start_time'  => 'required|date_format:H:i',
+            'end_date'    => 'required|date',
+            'end_time'    => 'required|date_format:H:i',
             'title'       => 'required|max:191',
             'description' => 'required|max:2500',
             'color'       => 'max:191',
             'place'       => 'max:191',
             'price'       => 'required|numeric|max:999999999.99',
         ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         $start_datetime = self::getDatetime($request->start_date, $request->start_time);
         $end_datetime = self::getDatetime($request->end_date, $request->end_time);
