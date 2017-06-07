@@ -96,6 +96,10 @@ class EventController extends Controller
 
             return redirect()->back()->withErrors($validator)->withInput();
         }
+        
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         $user = User::findOrFail(Auth::id());
 
