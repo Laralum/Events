@@ -33,7 +33,7 @@ class PublicEventController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Event::class);
+        $this->authorize('publicCreate', Event::class);
 
         return view('laralum_events::public.create');
     }
@@ -63,7 +63,7 @@ class PublicEventController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', Event::class);
+        $this->authorize('publicCreate', Event::class);
 
         // Check dates
         $validator = Validator::make($request->all(), [
