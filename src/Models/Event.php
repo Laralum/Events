@@ -31,7 +31,7 @@ class Event extends Model
      */
     public function creator()
     {
-        return $this->belongsTo('\Laralum\Users\Models\User');
+        return $this->belongsTo('\Laralum\Users\Models\User', 'user_id');
     }
 
     /**
