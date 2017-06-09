@@ -36,7 +36,7 @@
                                             <td style="color:{{ $event->color }}">{{ $event->title }}</td>
                                             <td><span class="uk-label {{ ($event->public) ? "uk-label-success" : "uk-label-warning" }}">{{($event->public) ? __('laralum_events::general.published') : __('laralum_events::general.unpublished') }}</span></td>
 
-                                            <td>{{ $event->user->name }}</td>
+                                            <td>{{ $event->creator->name }}</td>
                                             <td>{{ $event->users->count() }}</td>
                                             <td class="uk-table-shrink">
                                                 <div class="uk-button-group">
