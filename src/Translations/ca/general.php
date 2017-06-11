@@ -86,7 +86,7 @@ return [
     'joined_event'              => "Has estat unit a l'event #:id",
     'left_event'                => "Has estat desunit l'event #:id",
     'join'                      => 'Participar',
-    'leave'                     => 'No Participar',
+    'leave'                     => 'Sortir',
     'public_routes'             => 'Rutes Publiques',
     'public_routes_desc'        => 'Habilitar rutes publiques',
 ];
