@@ -21,8 +21,6 @@ class EventController extends Controller
      */
     public function index()
     {
-        $this->authorize('view', Event::class);
-
         return view('laralum_events::laralum.index', [
             'events' => Event::orderBy('id', 'desc')->paginate(50),
         ]);
