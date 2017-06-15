@@ -56,7 +56,7 @@ class EventPolicy
      */
     public function view($user, Event $event)
     {
-        if ($event->user->id == $user->id) {
+        if ($event->creator->id == $user->id) {
             return true;
         }
 
@@ -72,7 +72,7 @@ class EventPolicy
      */
     public function update($user, Event $event)
     {
-        if ($event->user->id == $user->id) {
+        if ($event->creator->id == $user->id) {
             return true;
         }
 
@@ -88,7 +88,7 @@ class EventPolicy
      */
     public function delete($user, Event $event)
     {
-        if ($event->user->id == $user->id) {
+        if ($event->creator->id == $user->id) {
             return true;
         }
 
@@ -152,7 +152,7 @@ class EventPolicy
      */
     public function publicView($user, Event $event)
     {
-        if ($event->user->id == $user->id) {
+        if ($event->creator->id == $user->id) {
             return true;
         }
 
@@ -168,7 +168,7 @@ class EventPolicy
      */
     public function publicUpdate($user, Event $event)
     {
-        if ($event->user->id == $user->id) {
+        if ($event->creator->id == $user->id) {
             return User::findOrFail($user->id)->hasPermission('laralum::events.update-public');
         }
 
@@ -184,7 +184,7 @@ class EventPolicy
      */
     public function publicDelete($user, Event $event)
     {
-        if ($event->user->id == $user->id) {
+        if ($event->creator->id == $user->id) {
             return User::findOrFail($user->id)->hasPermission('laralum::events.delete-public');
         }
 
