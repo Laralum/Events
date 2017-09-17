@@ -155,7 +155,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            @include('laralum::layouts.pagination', ['paginator' => $users])
+                            {{ $users->links('laralum::layouts.pagination') }}
                             <br>
                         </li>
                     </ul>

@@ -95,7 +95,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('laralum::layouts.pagination', ['paginator' => $events])
+                        {{ $events->links('laralum::layouts.pagination') }}
                     </div>
                 </div>
             </div>
