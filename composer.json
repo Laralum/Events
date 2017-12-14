@@ -3,7 +3,7 @@
     "description": "Events module for laralum",
     "require": {
         "laralum/laralum": "^1.1.2",
-        "graham-campbell/markdown": "7.*",
+        "graham-campbell/markdown": "^8.0",
         "league/html-to-markdown": "4.*"
     },
     "license": "MIT",
