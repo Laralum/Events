@@ -1,4 +1,4 @@
-<p align="center"><a href="https://laralum.com"><img height="150" src="https://avatars1.githubusercontent.com/u/22253051"></a></p>
+<p align="center"><a href="https://laralum.aitorriba.com"><img height="150" src="https://avatars1.githubusercontent.com/u/22253051"></a></p>
 
 <h1 align="center">Events</h1>
 
@@ -17,7 +17,7 @@ This module allows you to share your events with the people.
 ## Documentation
 
 <p align="center">
-<a href="https://laralum.com/docs/events"><img height="120" src="http://i.imgur.com/47WnADd.png"></a>
+<a href="https://laralum.aitorriba.com/docs/events"><img height="120" src="http://i.imgur.com/47WnADd.png"></a>
 </p>
 
 ## License
